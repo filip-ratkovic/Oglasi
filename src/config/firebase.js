@@ -3,7 +3,7 @@ import {createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, sendPasswor
   signInWithEmailAndPassword, signInWithPopup, signOut, updatePassword} from "firebase/auth"
 import { store } from "../store/store";
 import { authSlice } from "../store/authSlice";
-// import { getFirestore, collection, getDocs, addDoc, doc, deleteDoc, getDoc, updateDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc, doc, deleteDoc, getDoc, updateDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -18,6 +18,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
 export const googleProvider = new GoogleAuthProvider()
+export const db = getFirestore(app);
+
 
 //    REGISTRACIJA 
 
@@ -91,3 +93,39 @@ export const login = async (email, password) => {
 
   return user
 }
+
+
+// FIRESTORE
+
+export const dodajOglas = async (data) => {
+  const result = await addDoc(collection(db, "Oglasi"), data);
+  return result;
+};
+
+
+
+export const izbrisiOglas = async (id) => {
+  const docRef = doc(db, "Oglasi", id);
+  return await deleteDoc(docRef)
+}
+
+
+export const getOglase = async () => {
+  const quotesCollection = collection(db, "Oglasi");
+  const quoteResults = await getDocs(quotesCollection);
+  const quoteList = quoteResults.docs.map((doc) => ({...doc.data(), id : doc.id}));
+  return quoteList;
+};
+
+
+export const updateOglas = async (id, data) => {
+  const docRef = doc(db, "Oglasi", id);
+  return await updateDoc(docRef, data);
+};
+
+export const getOglasById = async (id) => {
+  const docRef = doc(db, "Oglasi", id);
+  const docSnap = await getDoc(docRef);
+  const data = docSnap.data();
+  return { ...data, id: id };
+};
