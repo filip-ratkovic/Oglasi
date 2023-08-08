@@ -1,0 +1,9 @@
+.link {
+    text-decoration: none;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.link span{
+    color: #0b73e9;
+}
