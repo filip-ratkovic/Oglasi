@@ -4,6 +4,8 @@ import {createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, sendPasswor
 import { store } from "../store/store";
 import { authSlice } from "../store/authSlice";
 import { getFirestore, collection, getDocs, addDoc, doc, deleteDoc, getDoc, updateDoc } from "firebase/firestore";
+import {getStorage, listAll, ref, uploadBytes} from "firebase/storage"
+import { v4 } from "uuid";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -19,6 +21,7 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
 export const googleProvider = new GoogleAuthProvider()
 export const db = getFirestore(app);
+export const storage = getStorage(app)
 
 
 //    REGISTRACIJA 
@@ -129,3 +132,12 @@ export const getOglasById = async (id) => {
   const data = docSnap.data();
   return { ...data, id: id };
 };
+
+
+//        STORAGE       STORAGE /////////////////
+
+export const uploadImage = async (image, auth, name) => {
+  const imageRef = ref(storage, `images/${auth}/${name}/${image.name + v4()}`)
+  const response = await uploadBytes(imageRef, image)
+  return response 
+}

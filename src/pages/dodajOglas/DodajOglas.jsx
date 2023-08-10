@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { auth, dodajOglas } from '../../config/firebase';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { auth, dodajOglas } from "../../config/firebase";
 import { Formik } from "formik";
 import * as yup from "yup";
-import Layout from '../../containers/Layout';
+import Layout from "../../containers/Layout";
+import {  storage, uploadImage } from '../../config/firebase'
+import { getDownloadURL, listAll, ref } from 'firebase/storage';
 
 import {
   TextField,
@@ -27,66 +29,88 @@ const dodajOglasShema = yup.object({
     .required("Naziv proizvoda je obavezno polje")
     .min(2, "Naziv proizvoda mora da ima najmanje 2 karaktera")
     .max(50, "Naziv proizvoda mora da ima najvise 50 karaktera"),
-    cena: yup
-    .number()
-    .required("Cena je obavezno polje"),
-    brojTelefona: yup
-    .number(),
-    lokacija: yup
-    .string()
-    .required("Lokacija je obavezno polje"),
-    novo:yup
-    .string()
+  cena: yup.number().required("Cena je obavezno polje"),
+  brojTelefona: yup.number(),
+  lokacija: yup.string().required("Lokacija je obavezno polje"),
+  novo: yup.string(),
 });
 
-
 function DodajOglas() {
-    const navigate = useNavigate()
-    const authState = useSelector((state) => state.auth);
-    const userAuth = auth?.currentUser?.uid;
-    const theme = useTheme();
-  
-  
-    const potvrdiOglas = async (values) => {
-      try {
-        await dodajOglas(values);
-        alert("Uspesno !")
-        navigate("/")
-      } catch(err) {
-        console.error(err)
-      }
+  const [imageUpload, setImageUpload] = useState(null);
+    const [imageList, setImageList] = useState([]);
+    const [imeOglasa, setImeOglasa] =useState('error')
+
+  const navigate = useNavigate();
+  const authState = useSelector((state) => state.auth);
+  const userAuth = auth?.currentUser?.uid;
+  const theme = useTheme();
+  const imageListRef = ref(storage, `images/${userAuth}/${imeOglasa}`)
+
+  const potvrdiOglas = async (values) => {
+    try {
+      await dodajOglas(values);
+      alert("Uspesno !");
+      navigate("/");
+    } catch (err) {
+      console.error(err);
     }
-const date = new Date()
-const godina = date.getFullYear()
-const mesec = date.getMonth();
-const dan = date.getDate();
+  };
 
-    const datum =  `${dan}.${mesec}.${godina}`;
-    
+  const submitUploadImage = async () => {
+    if(imageUpload == null) return;
+     uploadImage(imageUpload, userAuth, imeOglasa)
+     .then((snaphsot)=> {
+      getDownloadURL(snaphsot.ref).then((url)=> {
+        setImageList((prev) => [...prev, url])
+      })
+     })
+    alert("Uploaded")
+  }
 
-    useEffect(()=> {
-        if (!userAuth) {
-          navigate("/registracija");
-          alert("nemate pristup");
-        }
-       })
+
+  useEffect(()=> {
+    listAll(imageListRef)
+    .then((response)=> {
+      response.items.forEach((item)=> {
+        getDownloadURL(item).then((url)=> {
+          setImageList((prev)=> [...prev, url])
+        })
+      })
+     })
+  },[])
+
+  const date = new Date();
+  const godina = date.getFullYear();
+  const mesec = date.getMonth();
+  const dan = date.getDate();
+
+  const datum = `${dan}.${mesec}.${godina}`;
+
+  useEffect(() => {
+    if (!userAuth) {
+      navigate("/registracija");
+      alert("nemate pristup");
+    }
+  });
+
   return (
-<Layout>
+    <Layout>
       <Formik
         initialValues={{
           text: "",
           naziv: "",
           lokacija: "",
-          cena:0,
-          novo:"",
+          cena: 0,
+          novo: "",
           kategorija: "",
-          brojTelefona:0,
+          brojTelefona: 0,
           vreme: datum,
-          userID:userAuth
+          userID: userAuth,
+          uploadedImageList: [],
         }}
         validationSchema={dodajOglasShema}
         onSubmit={(values, actions) => {
-           potvrdiOglas(values);
+          potvrdiOglas(values);
         }}
       >
         {({
@@ -97,8 +121,13 @@ const dan = date.getDate();
           handleBlur,
           handleSubmit,
         }) => (
-          <Box sx={{textAlign:"center"}}>
-
+          <Box sx={{ textAlign: "center" }}>
+            <TextField
+             variant="outlined"
+             label="Naziv proizvoda"
+             type="text"
+             onChange={setImeOglasa(values.naziv)}>
+            </TextField>
             <Box my={1}>
               <TextField
                 variant="outlined"
@@ -205,74 +234,108 @@ const dan = date.getDate();
                 }}
               />
               <Typography variant="body1" color="error">
-                {errors.brojTelefona && touched.brojTelefona && errors.brojTelefona}
+                {errors.brojTelefona &&
+                  touched.brojTelefona &&
+                  errors.brojTelefona}
               </Typography>
             </Box>
 
-            
             <Box my={1}>
-            
-               <Select
-              // labelId="demo-simple-select-label"
-              // id="demo-simple-select"
-              label="Novo ili polovno"
-              type="text"
-              name="novo"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.novo}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: theme.palette.primary.main,
+              <Select
+                // labelId="demo-simple-select-label"
+                // id="demo-simple-select"
+                label="Novo ili polovno"
+                type="text"
+                name="novo"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.novo}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: theme.palette.primary.main,
+                    },
                   },
-                },
-              }}
-            >
-              <MenuItem value={"Novo"}>Novo</MenuItem>
-              <MenuItem value={"Polovno"}>Polovno</MenuItem>
-            </Select>
+                }}
+              >
+                <MenuItem value={"Novo"}>Novo</MenuItem>
+                <MenuItem value={"Polovno"}>Polovno</MenuItem>
+              </Select>
               <Typography variant="body1" color="error">
                 {errors.novo && touched.novo && errors.novo}
               </Typography>
             </Box>
 
             <Box my={1}>
-            
-            <Select
-           // labelId="demo-simple-select-label"
-           // id="demo-simple-select"
-           label="Kategorija"
-           type="string"
-           name="kategorija"
-           onChange={handleChange}
-           onBlur={handleBlur}
-           value={values.kategorija}
-           sx={{
-             "& .MuiOutlinedInput-root": {
-               "& fieldset": {
-                 borderColor: theme.palette.primary.main,
-               },
-             },
-           }}
-         >
-           <MenuItem value={"Alati"}>Alati</MenuItem>
-           <MenuItem value={"Audio"}>Audio</MenuItem>
-           <MenuItem value={"Elektronika"}>Elektronika</MenuItem>
-           <MenuItem value={"Odeca"}>Odeca</MenuItem>
-           <MenuItem value={"Obuca"}>Obuca</MenuItem>
-           <MenuItem value={"Knjige"}>Knjige</MenuItem>
-           <MenuItem value={"Igre"}>Igre</MenuItem>
-           <MenuItem value={"Razno"}>Razno</MenuItem>
-         </Select>
-           <Typography variant="body1" color="error">
-             {errors.kategorija && touched.kategorija && errors.kategorija}
-           </Typography>
-         </Box>
+              <Select
+                // labelId="demo-simple-select-label"
+                // id="demo-simple-select"
+                label="Kategorija"
+                type="string"
+                name="kategorija"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.kategorija}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: theme.palette.primary.main,
+                    },
+                  },
+                }}
+              >
+                <MenuItem value={"Alati"}>Alati</MenuItem>
+                <MenuItem value={"Audio"}>Audio</MenuItem>
+                <MenuItem value={"Elektronika"}>Elektronika</MenuItem>
+                <MenuItem value={"Odeca"}>Odeca</MenuItem>
+                <MenuItem value={"Obuca"}>Obuca</MenuItem>
+                <MenuItem value={"Knjige"}>Knjige</MenuItem>
+                <MenuItem value={"Igre"}>Igre</MenuItem>
+                <MenuItem value={"Razno"}>Razno</MenuItem>
+              </Select>
+              <Typography variant="body1" color="error">
+                {errors.kategorija && touched.kategorija && errors.kategorija}
+              </Typography>
+            </Box>
 
-           
-
-            
+            {/* IMAGE UPLOAD  */}
+            <Box my={1}>
+              <TextField
+                  id="outlined-basic"
+                  variant="outlined"
+                type="file"
+                name="uploadImageList"
+                onChange={(e)=> {
+                  setImageUpload(e.target.files[0])
+                }}
+                onBlur={handleBlur}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: theme.palette.primary.main,
+                    },
+                  },
+                }}
+              />
+              <Typography variant="body1" color="error">
+                {errors.uploadedImageList &&
+                  touched.uploadedImageList &&
+                  errors.uploadedImageList}
+              </Typography>
+              <Button onClick={()=>{
+                submitUploadImage();
+                values.uploadedImageList = imageList
+              }}>Upload image </Button>
+              {imageList.map((url) => {
+                return (
+                  <img
+                    src={url}
+                    alt="oglas"
+                    style={{ width: "50px", margin: "10px" }}
+                  />
+                );
+              })}
+            </Box>
 
             <Button onClick={handleSubmit} type="button" variant="contained">
               Dodaj oglas
@@ -280,7 +343,8 @@ const dan = date.getDate();
           </Box>
         )}
       </Formik>
-    </Layout>  )
+    </Layout>
+  );
 }
 
-export default DodajOglas
+export default DodajOglas;
