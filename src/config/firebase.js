@@ -105,6 +105,12 @@ export const dodajOglas = async (data) => {
   return result;
 };
 
+export const addUsers = async (data) => {
+  const result = await addDoc(collection(db, "users"), data);
+  return result;
+};
+
+
 
 
 export const izbrisiOglas = async (id) => {

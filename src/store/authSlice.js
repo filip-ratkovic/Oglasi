@@ -16,7 +16,6 @@ export const authSlice = createSlice({
       return state;
     },
     logout(state, actions) {
-      localStorage.setItem("auth",{})
       return (initialState = {
         id: null,
         email: null,

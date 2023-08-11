@@ -86,13 +86,6 @@ function DodajOglas() {
 
   const datum = `${dan}.${mesec}.${godina}`;
 
-  useEffect(() => {
-    if (!userAuth) {
-      navigate("/registracija");
-      alert("nemate pristup");
-    }
-  });
-
   return (
     <Layout>
       <Formik

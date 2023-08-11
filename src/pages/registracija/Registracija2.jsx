@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Layout from "../../containers/Layout";
 import "./registracija.css";
 
-import { addUsers, signInWithGoogle, signUp } from "../../config/firebase";
+import { signInWithGoogle, signUp } from "../../config/firebase";
 
 import {
   TextField,
@@ -22,7 +22,6 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useSelector } from "react-redux";
-import { serverTimestamp } from "firebase/firestore";
 
 const RegistracijaShema = Yup.object({
   email: Yup.string()
@@ -53,8 +52,7 @@ const Registracija = () => {
 
   const signUpSubmit = async (values) => {
     try {
-      const res = await signUp(values.email, values.password);
-      await addUsers({ ...values, id: res.uid, email: res.email });
+      await signUp(values.email, values.password);
       navigate("/");
     } catch (error) {
       alert(error);
@@ -73,17 +71,7 @@ const Registracija = () => {
   return (
     <Layout>
       <Formik
-        initialValues={{
-          email: "",
-          password: "",
-          confirm_password: "",
-          username: "",
-          ime_prezime: "",
-          grad: "",
-          ocena: 0,
-          broj_telefona: "",
-          timeStramp:serverTimestamp()
-        }}
+        initialValues={{ email: "", password: "", confirm_password: "" }}
         validationSchema={RegistracijaShema}
         onSubmit={(values, actions) => {
           signUpSubmit(values);
@@ -211,92 +199,6 @@ const Registracija = () => {
                   `* ${errors.confirm_password}`}
               </Typography>
             </Box>
-
-            <Box my={1}>
-              <TextField
-                variant="standard"
-                label="Username"
-                type="text"
-                name="username"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.username}
-                style={{ width: "400px" }}
-                sx={{
-                  "& label": {
-                    color: "grey",
-                  },
-                }}
-              />
-              <Typography variant="body2" color="error">
-                {errors.username && touched.username && `* ${errors.username}`}
-              </Typography>
-            </Box>
-
-            <Box my={1}>
-              <TextField
-                variant="standard"
-                label="Ime i prezime"
-                type="text"
-                name="ime_prezime"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.ime_prezime}
-                style={{ width: "400px" }}
-                sx={{
-                  "& label": {
-                    color: "grey",
-                  },
-                }}
-              />
-              <Typography variant="body2" color="error">
-                {errors.ime_prezime && touched.ime_prezime && `* ${errors.ime_prezime}`}
-              </Typography>
-            </Box>
-
-            <Box my={1}>
-              <TextField
-                variant="standard"
-                label="grad"
-                type="text"
-                name="grad"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.grad}
-                style={{ width: "400px" }}
-                sx={{
-                  "& label": {
-                    color: "grey",
-                  },
-                }}
-              />
-              <Typography variant="body2" color="error">
-                {errors.grad && touched.grad && `* ${errors.grad}`}
-              </Typography>
-            </Box>
-
-
-            <Box my={1}>
-              <TextField
-                variant="standard"
-                label="Broj telefona (+381/661234567)"
-                type="text"
-                name="broj_telefona"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.broj_telefona}
-                style={{ width: "400px" }}
-                sx={{
-                  "& label": {
-                    color: "grey",
-                  },
-                }}
-              />
-              <Typography variant="body2" color="error">
-                {errors.broj_telefona && touched.broj_telefona && `* ${errors.broj_telefona}`}
-              </Typography>
-            </Box>
-
 
             <Box
               mt={5}
