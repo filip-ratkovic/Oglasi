@@ -142,8 +142,8 @@ export const getOglasById = async (id) => {
 
 //        STORAGE       STORAGE /////////////////
 
-export const uploadImage = async (image, auth, name) => {
-  const imageRef = ref(storage, `images/${auth}/${name}/${image.name + v4()}`)
+export const uploadImage = async (image) => {
+  const imageRef = ref(storage, `oglasi/${image.name + v4()}`)
   const response = await uploadBytes(imageRef, image)
   return response 
 }
