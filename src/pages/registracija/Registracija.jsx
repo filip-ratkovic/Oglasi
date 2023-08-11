@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "../../containers/Layout";
-import "./registracija.css"
+import "./registracija.css";
 
 import { signInWithGoogle, signUp } from "../../config/firebase";
 
@@ -24,28 +24,25 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 
 const RegistracijaShema = Yup.object({
-  email: Yup
-    .string()
+  email: Yup.string()
     .required("Email je obavezno polje, unesite email")
     .email("Email format nije dobar"),
-  password: Yup
-    .string()
+  password: Yup.string()
     .required("Sifra je obavezno polje, unesite sifru")
     .min(6, "Sifra mora da ima najmanje 6 karaktera")
     .max(50, "Sifra mora da ima najvise 50 karaktera"),
-  confirm_password: Yup
-    .string()
+  confirm_password: Yup.string()
     .label("confirm password")
     .required()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')});
+    .oneOf([Yup.ref("password"), null], "Passwords must match"),
+});
 
 const Registracija = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const theme = useTheme();
   const navigate = useNavigate();
-  const authState = useSelector((state) => state.auth)
-  console.log(authState, "authState")
+  const authState = useSelector((state) => state.auth);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -125,11 +122,7 @@ const Registracija = () => {
             </Box>
             <Box my={1}>
               <FormControl variant="standard">
-                <InputLabel
-                  sx={{ color: "grey" }}
-                >
-                  Password
-                </InputLabel>
+                <InputLabel sx={{ color: "grey" }}>Password</InputLabel>
                 <Input
                   style={{ width: "400px" }}
                   label="Password"
@@ -201,7 +194,9 @@ const Registracija = () => {
               </FormControl>
 
               <Typography variant="body2" color="error">
-                {errors.confirm_password && touched.confirm_password && `* ${errors.confirm_password}`}
+                {errors.confirm_password &&
+                  touched.confirm_password &&
+                  `* ${errors.confirm_password}`}
               </Typography>
             </Box>
 

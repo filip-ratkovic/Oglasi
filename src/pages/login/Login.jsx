@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Formik } from "formik";
-import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
+import { loginSchema } from "../../shema/loginShema";
 
 import {
   TextField,
@@ -16,35 +16,28 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import { login, resetPassword, signInWithGoogle } from "../../config/firebase";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+
+import { login, resetPassword, signInWithGoogle } from "../../config/firebase";
 import Layout from "../../containers/Layout";
 
-const loginSchema = yup.object({
-  email: yup
-    .string()
-    .required("Email je obavezno polje, unesite email")
-    .email("Email format nije dobar"),
-  password: yup
-    .string()
-    .required("Sifra je obavezno polje, unesite sifru")
-    .min(6, "Sifra mora da ima najmanje 6 karaktera")
-    .max(50, "Sifra mora da ima najvise 50 karaktera"),
-});
+
 
 const Login = () => {
   const [forgotPassword, setForgotPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] =useState(false)
 
   const navigate = useNavigate();
   const theme = useTheme();
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
+  
   const signInWithGoogleHandler = async () => {
     try {
       await signInWithGoogle();
@@ -60,7 +53,7 @@ const Login = () => {
       navigate("/");
     } catch (error) {
       setForgotPassword(true);
-      alert(error.message);
+      setError(true)
     }
   };
 
@@ -167,7 +160,7 @@ const Login = () => {
 
               {forgotPassword && (
                 <Typography
-                  style={{ color: "blue", cursor: "pointer" }}
+                  style={{  color: theme.palette.error.main, cursor: "pointer" }}
                   onClick={() => forgotPasswordHandler(values.email)}
                 >
                   Forgot password ?
@@ -205,6 +198,11 @@ const Login = () => {
                 Log in with Google
               </Button>
             </Box>
+            { error && <Typography
+              style={{ color: theme.palette.error.main, marginTop:'10px'}}
+            >
+              Wrong email or password!
+            </Typography>}
             <Link
               to={"/signup"}
               className="link"

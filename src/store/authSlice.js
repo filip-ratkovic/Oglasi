@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  id: null,
-  email: null,
-  token: null,
+let initialState = {
+  id: JSON.parse(localStorage.getItem("userAuth"))?.id || null,
+  email: JSON.parse(localStorage.getItem("userAuth"))?.email || null,
+  token: JSON.parse(localStorage.getItem("userAuth"))?.token || null,
 };
 
 export const authSlice = createSlice({
@@ -16,7 +16,12 @@ export const authSlice = createSlice({
       return state;
     },
     logout(state, actions) {
-      return initialState;
+      localStorage.setItem("auth",{})
+      return (initialState = {
+        id: null,
+        email: null,
+        token: null,
+      });
     },
   },
 });

@@ -22,7 +22,6 @@ function Nav() {
   const navigate = useNavigate();
   const authState = useSelector((state) => state.auth);
   const userAuth = auth?.currentUser?.uid;
-  console.log(userAuth);
 
   const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
