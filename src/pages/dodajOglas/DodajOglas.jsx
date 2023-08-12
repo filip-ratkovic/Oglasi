@@ -3,99 +3,106 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth, dodajOglas } from "../../config/firebase";
 import Layout from "../../containers/Layout";
-import {  storage, uploadImage } from '../../config/firebase'
-import { getDownloadURL, listAll, ref, uploadBytesResumable } from 'firebase/storage';
-import { useTheme } from "@mui/material";
+import { storage, uploadImage } from "../../config/firebase";
+import {
+  getDownloadURL,
+  listAll,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { Box, useTheme } from "@mui/material";
 import { v4 } from "uuid";
-
 
 function DodajOglas() {
   const [file, setFile] = useState([]);
-  const [data, setData] = useState({})
-  const [imageList, setImageList] =useState([])
+  const [data, setData] = useState({});
+  const [imageList, setImageList] = useState([]);
 
   const navigate = useNavigate();
   const theme = useTheme();
   const authState = useSelector((state) => state.auth);
   const userAuth = auth?.currentUser?.uid;
-  const imageRef = ref(storage, `oglasi/${file.name + v4()}`)
+  const imageRef = ref(storage, `oglasi/${file.name + v4()}`);
 
-
-  const potvrdiOglas = async (values) => {
+  const potvrdiOglas = async () => {
     try {
-      await dodajOglas(values);
+      await dodajOglas(data);
       alert("Uspesno !");
       navigate("/");
     } catch (err) {
       console.error(err);
     }
   };
-  
-  
-  useEffect(()=> {
-    if(file.length>0) {
-       for(let image of file) {
+
+  const handleInput = (e) => {
+    const value = e.target.value;
+    const inputID = e.target.id;
+    console.log(value, "value")
+    console.log(inputID, "inputID")
+
+    setData({ ...data, [inputID]: value});
+  };
+  console.log(data)
+
+  useEffect(() => {
+    if (file.length > 0) {
+      for (let image of file) {
         uploadImage(image)
-        .then((snaphsot)=> {
-          getDownloadURL(snaphsot.ref).then((url)=> {
-            imageList.push(url)
-            setData((prev) =>({...prev, img:imageList}))
+          .then((snaphsot) => {
+            getDownloadURL(snaphsot.ref).then((url) => {
+              imageList.push(url);
+              setData((prev) => ({ ...prev, img: imageList }));
+            });
           })
-        }).then(()=> setData((prev)=>({...prev, img:imageList})))
-       }
+          .then(() => setData((prev) => ({ ...prev, img: imageList })));
+      }
     }
-   
-},[file]);
-  console.log(imageList)
+  }, [file]);
+  console.log(imageList);
   const date = new Date();
   const godina = date.getFullYear();
   const mesec = date.getMonth();
   const dan = date.getDate();
-  
+
   const datum = `${dan}.${mesec}.${godina}`;
- 
-  // useEffect(()=> {
-  //   const uploadImages = ()=> {
-  //     const imageRef = ref(storage, `oglasi/${file.name + v4()}`);
-  //     const uploadTask = uploadBytesResumable(imageRef, file);
-      
-  //     uploadTask.on('state_changed', 
-  //     (snapshot) => {
-  //       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-  //       console.log('Upload is ' + progress + '% done');
-  //       switch (snapshot.state) {
-  //         case 'paused':
-  //           console.log('Upload is paused');
-  //           break;
-  //           case 'running':
-  //           console.log('Upload is running');
-  //           break;
-  //           default:
-  //           break;
-  //       }
-  //     }, 
-  //     (error) => {
-  //     }, 
-  //     () => {
-  //       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-  //         setData((prev)=> ({...prev, img:downloadURL}))
-  //       });
-  //     }
-  //   );
-  //      file &&  uploadImages()
-  //     }
-  // },[file]);
+
   return (
     <Layout>
-      <input type="file" id="file" multiple
-       onChange={(e)=>{setFile(e.target.files)}} />
-      {imageList.map((url)=> {
-        return (
-          <div>
-              <img src={url} alt="urururu" style={{width:"50px", margin:"10px"}} />
-          </div>
-        )
-      })}
+      <Box className="add-container">
+        <Box className="add-image">
+          <input
+            type="file"
+            id="file"
+            multiple
+            onChange={(e) => {
+              setFile(e.target.files);
+            }}
+          />
+          {imageList.map((url) => {
+            return (
+              <div>
+                <img
+                  src={url}
+                  alt="urururu"
+                  style={{ width: "50px", margin: "10px" }}
+                />
+              </div>
+            );
+          })}
+        </Box>
+        <Box className="add-info">
+          <input type="text" id="Naziv"
+          placeholder="Unesite naziv proizvoda"
+           onChange={handleInput}/>
+           <input type="text" id="Opis" placeholder="Opis"
+           onChange={handleInput}/>
+           <input type="number" id="Cena" placeholder="Cena"
+           onChange={handleInput}/>
+           <input type="text" id="Lokacija" placeholder="Lokacija"
+           onChange={handleInput}/>
+           <button onClick={potvrdiOglas}>Potvrdi</button>
+        </Box>
+      </Box>
     </Layout>
   );
 }
