@@ -150,7 +150,7 @@ function Nav() {
               control={
                 <MaterialUISwitch
                   sx={{ m: 1 }}
-                  defaultChecked
+                  selected
                   onChange={() => {
                     dispatch(themeSlice.actions.toggleTheme());
                   }}

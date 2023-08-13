@@ -126,6 +126,13 @@ export const getOglase = async () => {
   return quoteList;
 };
 
+export const getUsers = async () => {
+  const usersCollection = collection(db, "users");
+  const usersResults = await getDocs(usersCollection);
+  const usersList = usersResults.docs.map((doc) => ({...doc.data(), id : doc.id}));
+  return usersList;
+};
+
 
 export const updateOglas = async (id, data) => {
   const docRef = doc(db, "Oglasi", id);

@@ -25,14 +25,16 @@ function Pocetna() {
  
  return <div style={{ width:"250px", margin:"30px", border:"1px solid red"}}>
  <h1>{oglas.naziv}</h1>
- <p>{oglas.text}</p>
+ <p>{oglas.opis}</p>
  <p>{oglas.cena}</p>
- <p>{oglas.brojTelefona}</p>
- <p>{oglas.novo}</p>
+ <p>{oglas.broj_elefona}</p>
+ <p>{oglas.stanje}</p>
  <p>{oglas.kategorija}</p>
- <p>{oglas.userID}</p>
+ <p>{oglas.lokacija}</p>
+ <h1>{oglas.username}</h1>
+ <p>vreme postavljanja oglasa : {oglas.datum}</p>
  <div>
-   {oglas.uploadedImageList?.map((url)=> {
+   {oglas.img?.map((url)=> {
      return <img src={url} alt="slslsa"  style={{width:"100px", margin:"10px"}}/>
    })}
  </div>
