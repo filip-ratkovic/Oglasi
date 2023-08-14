@@ -4,17 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { auth, dodajOglas, getUsers } from "../../config/firebase";
 import Layout from "../../containers/Layout";
 import { storage, uploadImage } from "../../config/firebase";
-import {
-  getDownloadURL,
-  listAll,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
-import { Box, useTheme } from "@mui/material";
+import { getDownloadURL, ref } from "firebase/storage";
+import { Box, Grid, TextField, useTheme } from "@mui/material";
 import { v4 } from "uuid";
 import { datum } from "../../shema/datum";
+import "./dodajOglas.css";
 
-
+import ClearIcon from "@mui/icons-material/Clear";
 function DodajOglas() {
   const [file, setFile] = useState([]);
   const [data, setData] = useState({});
@@ -26,7 +22,6 @@ function DodajOglas() {
   const userAuth = auth?.currentUser?.uid;
   const imageRef = ref(storage, `oglasi/${file.name + v4()}`);
   const vremeOglasa = datum();
-
 
   const potvrdiOglas = async () => {
     try {
@@ -59,58 +54,98 @@ function DodajOglas() {
     }
   }, [file]);
 
-    const getUsersData = useCallback( async ()=> {
-      const allUsers = await getUsers();
-      allUsers.map((user)=> {
-        if(user.userID == auth.currentUser.uid) {
-          setData((prev)=>({...prev, userID:user.userID, username: user.username, ime_prezime: user.ime_prezime, datum:datum()}))
-        }
-      })
-    })
+  const getUsersData = useCallback(async () => {
+    const allUsers = await getUsers();
+    allUsers.map((user) => {
+      if (user.userID == auth.currentUser.uid) {
+        setData((prev) => ({
+          ...prev,
+          userID: user.userID,
+          username: user.username,
+          ime_prezime: user.ime_prezime,
+          datum: datum(),
+        }));
+      }
+    });
+  });
 
-    useEffect(() => {
-      getUsersData();
-    },[])
+  useEffect(() => {
+    getUsersData();
+  }, []);
 
   return (
     <Layout>
       <Box className="add-container">
         <Box className="add-image">
-          <input
-            type="file"
-            id="file"
-            multiple
-            onChange={(e) => {
-              setFile(e.target.files);
-            }}
-          />
-          {imageList.map((url) => {
-            return (
-              <div>
-                <img
-                  src={url}
-                  alt="urururu"
-                  style={{ width: "50px", margin: "10px" }}
-                />
-              </div>
-            );
-          })}
+          <section class="file-input">
+            <input
+              type="file"
+              id="file"
+              multiple
+              onChange={(e) => {
+                setFile(e.target.files);
+              }}
+            />
+            <span class="button">Choose</span>
+            <span class="label" data-js-label>
+              No file selected
+            </span>
+          </section>
+
+          <Grid className="add-image-list" container spacing={1}>
+            {imageList.map((url, index) => {
+              return (
+                <Grid 
+                  item
+                  xs={6}
+                  md={6}
+                  lg={4}
+                  onClick={(e) => {
+                    const newImageList = imageList.filter(
+                      (image) => image != e.target.src
+                    );
+                    setImageList(newImageList);
+                  }}
+                >
+                 <div className="img-cont">
+                 <span className="image-cont-delete">
+                    <ClearIcon />
+                  </span>
+                  <img src={url} alt="slika oglasa" />
+                 </div>
+                </Grid >
+              );
+            })}
+          </Grid>
         </Box>
+
         <Box className="add-info">
-          <label htmlFor="Naziv">Sta se oglasava?</label>
-          <input
+          <TextField
             type="text"
             id="naziv"
-            placeholder="Unesite naziv proizvoda"
+            placeholder="Iphone 11 pro"
             onChange={handleInput}
-          />{" "}
-          <br />
-          <textarea
-            type="text"
-            id="opis"
-            placeholder="Opis"
-            onChange={handleInput}
+            label="Unesite naziv proizvoda"
           />
+          
+           <TextField
+              style={{width:"100%"}}
+              label="Opis proizvoda"
+              type="text"
+              id="opis"
+              placeholder=" (ne koristiti pretežno velika slova jer takvi oglasi odbijaju posetioce)"
+              onChange={handleInput}
+              rows={4}
+                multiline
+                name="text"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: theme.palette.primary.main,
+                    },
+                  },
+                }}
+              />
           <input
             type="number"
             id="cena"
@@ -142,7 +177,10 @@ function DodajOglas() {
             <option value="polovno">polovno</option>
           </select>
           <select name="kategorija" id="kategorija" onChange={handleInput}>
-            <option value="alati" selected> alati </option>
+            <option value="alati" selected>
+              {" "}
+              alati{" "}
+            </option>
             <option value="elektronika">elektronika</option>
             <option value="obuca">obuca</option>
             <option value="odeca">odeca</option>
