@@ -26,7 +26,7 @@ export const storage = getStorage(app)
 
 //    REGISTRACIJA 
 
-export const signUp = async (email, password) => {
+export const signUp = async (email, password, username) => {
   const userCredential = await createUserWithEmailAndPassword(
     auth,
     email,
@@ -38,6 +38,7 @@ export const signUp = async (email, password) => {
       id: user.uid,
       email: user.email,
       token: user.accessToken,
+      username: username
     })
   );
 

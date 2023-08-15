@@ -103,3 +103,7 @@ flex-direction: column;
 
 
           /* INFO    INFO  */
+
+.category-dropdown{
+ z-index: 1;
+}

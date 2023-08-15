@@ -12,7 +12,6 @@ import { ThemeProvider } from "@mui/material";
 import "./app.css";
 import MojiOglasi from "./pages/mojiOglasi/MojiOglasi";
 import DodajOglas from "./pages/dodajOglas/DodajOglas";
-import { auth } from "./config/firebase";
 
 function App() {
   const themeState = useSelector((state) => state.theme);

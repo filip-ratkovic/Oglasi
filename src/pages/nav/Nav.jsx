@@ -23,6 +23,7 @@ function Nav() {
   const authState = useSelector((state) => state.auth);
   const userAuth = auth?.currentUser?.uid;
 
+
   const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
     height: 34,
@@ -106,7 +107,7 @@ function Nav() {
             ) : null}
 
             <Button
-              style={{ color: "white" }}
+              style={{ color: "white", marginRight:"auto" }}
               variant="outlined"
               onClick={()=> navigate("/dodajoglas")}
             >
@@ -158,8 +159,16 @@ function Nav() {
                 />
               }
             />
+             <Typography
+              variant="h6"
+              component="div"
+              sx={{  m: "10px", color:"lightgrey" }}
+            >
+              {authState?.username}
+            </Typography>
           </Toolbar>
         </AppBar>
+        
       </Box>
     </div>
   );
