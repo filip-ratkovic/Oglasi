@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { themeSlice } from "../../store/themeSlice";
 import { useNavigate } from "react-router-dom";
-import { MenuItem, Select, Switch } from "@mui/material";
+import { Switch } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";

@@ -1,12 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, dodajOglas, getUsers } from "../../config/firebase";
 import Layout from "../../containers/Layout";
-import { storage, uploadImage } from "../../config/firebase";
-import { getDownloadURL, ref } from "firebase/storage";
+import {  uploadImage } from "../../config/firebase";
+import { getDownloadURL} from "firebase/storage";
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, OutlinedInput, Select, TextField, useTheme } from "@mui/material";
-import { v4 } from "uuid";
 import { datum } from "../../shema/datum";
 import "./dodajOglas.css";
 
@@ -22,9 +20,7 @@ function DodajOglas() {
   const [categoryName, setCategoryName] = useState(allCategory[0])
   const navigate = useNavigate();
   const theme = useTheme();
-  const authState = useSelector((state) => state.auth);
-  const userAuth = auth?.currentUser?.uid;
-  const imageRef = ref(storage, `oglasi/${file.name + v4()}`);
+  // const imageRef = ref(storage, `oglasi/${file.name + v4()}`);
 
 
   const potvrdiOglas = async () => {
@@ -88,7 +84,7 @@ const MenuProps = {
   const getUsersData = useCallback(async () => {
     const allUsers = await getUsers();
     allUsers.map((user) => {
-      if (user.userID == auth.currentUser.uid) {
+      if (user.userID === auth.currentUser.uid) {
         setData((prev) => ({
           ...prev,
           userID: user.userID,
@@ -135,7 +131,7 @@ console.log(data)
                   lg={4}
                   onClick={(e) => {
                     const newImageList = imageList.filter(
-                      (image) => image != e.target.src
+                      (image) => image !== e.target.src
                     );
                     setImageList(newImageList);
                   }}
@@ -274,29 +270,8 @@ console.log(data)
               <MenuItem value={"da"} id="zamena" selected style={{width:"150px"}} >Da</MenuItem>
               <MenuItem value={"ne"} id="zamena" >Ne</MenuItem>
             </TextField>
-
-          
             </div>
-
            <div style={{width:"100%"}}>
-           {/* <FormControl sx={{ m: 1, width: 300 }}>
-           <TextField
-           fullWidth
-             select
-             label="Kategorija"
-              name="kategorija"
-              id="kategorija"
-              onChange={handleInput}
-              style={{width:"200%", marginTop:"30px"}}
-              defaultValue={"Alati"}
-              input={<OutlinedInput label="Nameeee" />}
-            >
-              
-              {allCategory?.map((value)=>{
-               return  <MenuItem value={value}>{value} </MenuItem>
-              })}
-            </TextField>
-            </FormControl> */}
 
  <FormControl sx={{ width: "100%", mt:"30px" }}>
         <InputLabel id="demo-multiple-name-label">Name</InputLabel>

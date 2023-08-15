@@ -4,7 +4,7 @@ import {createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, sendPasswor
 import { store } from "../store/store";
 import { authSlice } from "../store/authSlice";
 import { getFirestore, collection, getDocs, addDoc, doc, deleteDoc, getDoc, updateDoc } from "firebase/firestore";
-import {getStorage, listAll, ref, uploadBytes} from "firebase/storage"
+import {getStorage, ref, uploadBytes} from "firebase/storage"
 import { v4 } from "uuid";
 
 const firebaseConfig = {

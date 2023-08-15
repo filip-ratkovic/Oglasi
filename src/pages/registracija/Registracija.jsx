@@ -21,7 +21,6 @@ import {
   FormControl,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useSelector } from "react-redux";
 import { serverTimestamp } from "firebase/firestore";
 
 const RegistracijaShema = Yup.object({
@@ -43,7 +42,6 @@ const Registracija = () => {
 
   const theme = useTheme();
   const navigate = useNavigate();
-  const authState = useSelector((state) => state.auth);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
