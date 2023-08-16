@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, dodajOglas, getUsers, uploadImage } from "../../config/firebase";
-import { getDownloadURL } from "firebase/storage";
+import { getDownloadURL, listAll } from "firebase/storage";
 import Layout from "../../containers/Layout";
 
 import {
@@ -112,12 +112,13 @@ function DodajOglas() {
               name="file"
               multiple
               onChange={(e) => {
+                 (imageList.length + e.target.files.length)> 15 ? alert("Najvise 15 slika") :
                 setFile(e.target.files);
               }}
             />
             <span className="button">Choose</span>
             <span className="label" data-js-label>
-              No file selected
+              {imageList.length === 0 ? "Najvise 15 slika" : `Odabranih slika: ${imageList.length} `}
             </span>
           </section>
 
@@ -180,7 +181,7 @@ function DodajOglas() {
             name="opis"
             placeholder=" (ne koristiti pretežno velika slova jer takvi oglasi odbijaju posetioce)"
             onChange={handleInput}
-            rows={4}
+            rows={3}
             multiline
             sx={{
               "& .MuiOutlinedInput-root": {
@@ -274,13 +275,13 @@ function DodajOglas() {
           </div>
           <div style={{ width: "100%" }}>
             <FormControl sx={{ width: "100%", mt: "30px" }}>
-              <InputLabel id="demo-multiple-name-label">Name</InputLabel>
+              <InputLabel id="demo-multiple-name-label">Kategorija</InputLabel>
               <Select
                 labelId="demo-multiple-name-label"
                 id="kategorija"
                 value={categoryName}
                 onChange={handleCategory}
-                input={<OutlinedInput label="Nameeee" />}
+                input={<OutlinedInput label="Kategorija" />}
                 MenuProps={MenuProps}
               >
                 {allCategories.map((name) => (
@@ -297,7 +298,10 @@ function DodajOglas() {
             </FormControl>
           </div>
           <Button
-            onClick={potvrdiOglas}
+            onClick={()=>{
+              imageList.length<1 ? alert("Niste dodali slike") :
+              potvrdiOglas()
+            }}
             variant="outlined"
             style={{ zIndex: 0, marginTop: "30px", fontSize: "18px" }}
           >

@@ -26,7 +26,7 @@ function Pocetna() {
 
   return (
     <Layout>
-      {/* <div style={{width:'100%',display:"flex",  flexWrap:"wrap", marginTop:"400px"}}>
+      <div style={{width:'100%',display:"flex",  flexWrap:"wrap"}}>
       
 {oglasi.map((oglas)=> {
  
@@ -48,7 +48,7 @@ function Pocetna() {
 </div>
  
 })}
-    </div> */}
+    </div>
       </Layout>
   )
 }
