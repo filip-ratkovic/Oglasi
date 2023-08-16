@@ -53,8 +53,7 @@ function Nav() {
   };
   
   return (
-    <div>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, position:"sticky", top:"0", zIndex:"111" }}>
       <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -256,7 +255,6 @@ function Nav() {
       </Container>
     </AppBar>
       </Box>
-    </div>
   );
 }
 

@@ -1,4 +1,5 @@
 export const allCategories = [
+    "All",
     "Alati",
     "Audio",
     "Elektronika",
