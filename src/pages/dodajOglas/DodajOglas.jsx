@@ -1,27 +1,46 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, dodajOglas, getUsers } from "../../config/firebase";
+import { auth, dodajOglas, getUsers, uploadImage } from "../../config/firebase";
+import { getDownloadURL } from "firebase/storage";
 import Layout from "../../containers/Layout";
-import {  uploadImage } from "../../config/firebase";
-import { getDownloadURL} from "firebase/storage";
-import { Box, Button, FormControl, Grid, InputLabel, MenuItem, OutlinedInput, Select, TextField, useTheme } from "@mui/material";
-import { datum } from "../../shema/datum";
-import "./dodajOglas.css";
 
+import {
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  TextField,
+  useTheme,
+} from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
-import { allCategories } from "../../shema/allCategories";
 
+import { datum } from "../../shema/datum";
+import { allCategories } from "../../shema/allCategories";
+import "./dodajOglas.css";
 
 function DodajOglas() {
   const [file, setFile] = useState([]);
   const [data, setData] = useState({});
   const [imageList, setImageList] = useState([]);
-  const allCategory = allCategories;
-  const [categoryName, setCategoryName] = useState(allCategory[0])
+  const [categoryName, setCategoryName] = useState(allCategories[0]);
+
   const navigate = useNavigate();
   const theme = useTheme();
   // const imageRef = ref(storage, `oglasi/${file.name + v4()}`);
-
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: 200,
+        width: 250,
+        zIndex: "1",
+        backgroundColor: theme.palette.background,
+      },
+    },
+  };
 
   const potvrdiOglas = async () => {
     try {
@@ -33,53 +52,15 @@ function DodajOglas() {
     }
   };
 
-  const handleCategory =  (e) => {
-    console.log(e.target.value)
-     setCategoryName(e.target.value)
-    }
-
-    useEffect(()=> {
-        setData({ ...data, kategorija: categoryName});
-    },[categoryName])
-
-    useEffect(()=> {
-      setData({ ...data, stanje: "polovno", zamena:"da", valuta:"din"});
-  },[])
-
+  const handleCategory = (e) => {
+    setCategoryName(e.target.value);
+  };
 
   const handleInput = (e) => {
     const value = e.target.value;
     const inputID = e.target.name;
-    setData({ ...data, [inputID]: value, kategorija: categoryName});
-    };
-
-
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: 200,
-      width: 250,
-      zIndex:"1",
-      backgroundColor:theme.palette.background
-    }
-    },
+    setData({ ...data, [inputID]: value, kategorija: categoryName });
   };
-
-  useEffect(() => {
-    if (file.length > 0) {
-      for (let image of file) {
-        uploadImage(image)
-          .then((snaphsot) => {
-            getDownloadURL(snaphsot.ref).then((url) => {
-              imageList.push(url);
-              setData((prev) => ({ ...prev, img: imageList }));
-            });
-          })
-          .then(() => setData((prev) => ({ ...prev, img: imageList })));
-      }
-    }
-  }, [file]);
-
 
   const getUsersData = useCallback(async () => {
     const allUsers = await getUsers();
@@ -97,10 +78,29 @@ const MenuProps = {
   });
 
   useEffect(() => {
+    setData({ ...data, kategorija: categoryName });
+  }, [categoryName]);
+
+  useEffect(() => {
+    if (file.length > 0) {
+      for (let image of file) {
+        uploadImage(image)
+          .then((snaphsot) => {
+            getDownloadURL(snaphsot.ref).then((url) => {
+              imageList.push(url);
+              setData((prev) => ({ ...prev, img: imageList }));
+            });
+          })
+          .then(() => setData((prev) => ({ ...prev, img: imageList })));
+      }
+    }
+  }, [file]);
+
+  useEffect(() => {
     getUsersData();
+    setData({ ...data, stanje: "polovno", zamena: "da", valuta: "din" });
   }, []);
 
-console.log(data)
   return (
     <Layout>
       <Box className="add-container">
@@ -126,7 +126,8 @@ console.log(data)
               return (
                 <Grid
                   item
-                  xs={6}
+                  xs={4}
+                  sm={3}
                   md={6}
                   lg={4}
                   onClick={(e) => {
@@ -149,13 +150,7 @@ console.log(data)
         </Box>
 
         <Box className="add-info">
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
+          <div className="category-input1">
             <TextField
               type="text"
               id="naziv"
@@ -178,7 +173,7 @@ console.log(data)
           </div>
 
           <TextField
-            style={{ width: "100%", marginTop:"30px"}}
+            style={{ width: "100%", marginTop: "30px" }}
             label="Opis proizvoda"
             type="text"
             id="opis"
@@ -196,14 +191,7 @@ console.log(data)
             }}
           />
 
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop:"30px"
-            }}
-          >
+          <div className="category-input">
             <TextField
               style={{ width: "55%" }}
               label="Cena"
@@ -221,82 +209,100 @@ console.log(data)
               }}
             />
             <TextField
-             select
-             label="Odaberi valutu"
-             defaultValue="din"
+              select
+              label="Odaberi valutu"
+              defaultValue="din"
               name="valuta"
               id="valuta"
               onChange={handleInput}
-              style={{width:"40%"}}
+              style={{ width: "40%" }}
             >
-              <MenuItem value={"din"}  selected>DIN</MenuItem>
-              <MenuItem value={"eur"} >EUR</MenuItem>
+              <MenuItem value={"din"} selected>
+                DIN
+              </MenuItem>
+              <MenuItem value={"eur"}>EUR</MenuItem>
             </TextField>
           </div>
 
           <TextField
-               type="text"
-               id="lokacija"
-               name="lokacija"
-               placeholder="Unesite grad"
-               onChange={handleInput}
-              label="Lokacija"
-              style={{ width: "100%", marginTop:"30px" }}
-            />
+            type="text"
+            id="lokacija"
+            name="lokacija"
+            placeholder="Unesite grad"
+            onChange={handleInput}
+            label="Lokacija"
+            style={{ width: "100%", marginTop: "30px" }}
+          />
 
-            <div style={{width:"100%",marginTop:"30px", display:"flex", justifyContent:"space-between"}}>
+          <div className="category-input">
             <TextField
-             select
-             label="Stanje"
-             defaultValue="polovno"
+              select
+              label="Stanje"
+              defaultValue="polovno"
               name="stanje"
               id="stanje"
               onChange={handleInput}
-              style={{width:"45%"}}
+              style={{ width: "45%" }}
             >
-              <MenuItem value={"polovno"} selected>Polovno</MenuItem>
-              <MenuItem value={"novo"} >Novo</MenuItem>
+              <MenuItem value={"polovno"} selected>
+                Polovno
+              </MenuItem>
+              <MenuItem value={"novo"}>Novo</MenuItem>
             </TextField>
 
             <TextField
-             select
-             label="Zamena"
+              select
+              label="Zamena"
               name="zamena"
               id="zamena"
               defaultValue={"da"}
               onChange={handleInput}
-              style={{width:"45%"}}
+              style={{ width: "45%" }}
             >
-              <MenuItem value={"da"} id="zamena" selected style={{width:"150px"}} >Da</MenuItem>
-              <MenuItem value={"ne"} id="zamena" >Ne</MenuItem>
+              <MenuItem
+                value={"da"}
+                id="zamena"
+                selected
+                style={{ width: "150px" }}
+              >
+                Da
+              </MenuItem>
+              <MenuItem value={"ne"} id="zamena">
+                Ne
+              </MenuItem>
             </TextField>
-            </div>
-           <div style={{width:"100%"}}>
-
- <FormControl sx={{ width: "100%", mt:"30px" }}>
-        <InputLabel id="demo-multiple-name-label">Name</InputLabel>
-        <Select
-          labelId="demo-multiple-name-label"
-          id="kategorija"
-          value={categoryName}
-          onChange={handleCategory}
-          input={<OutlinedInput label="Nameeee" />}
-          MenuProps={MenuProps}
-        >
-          {allCategory.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              id={name}
-              className="category-dropdown"
-            >
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl> 
-           </div>
-          <Button onClick={potvrdiOglas} variant="outlined" style={{zIndex:0, marginTop:"30px", fontSize:"18px"}}>Potvrdi</Button>
+          </div>
+          <div style={{ width: "100%" }}>
+            <FormControl sx={{ width: "100%", mt: "30px" }}>
+              <InputLabel id="demo-multiple-name-label">Name</InputLabel>
+              <Select
+                labelId="demo-multiple-name-label"
+                id="kategorija"
+                value={categoryName}
+                onChange={handleCategory}
+                input={<OutlinedInput label="Nameeee" />}
+                MenuProps={MenuProps}
+              >
+                {allCategories.map((name) => (
+                  <MenuItem
+                    key={name}
+                    value={name}
+                    id={name}
+                    className="category-dropdown"
+                  >
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+          <Button
+            onClick={potvrdiOglas}
+            variant="outlined"
+            style={{ zIndex: 0, marginTop: "30px", fontSize: "18px" }}
+          >
+            Potvrdi
+          </Button>
         </Box>
       </Box>
     </Layout>

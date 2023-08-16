@@ -4,6 +4,7 @@ let initialState = {
   id: JSON.parse(localStorage.getItem("userAuth"))?.id || null,
   email: JSON.parse(localStorage.getItem("userAuth"))?.email || null,
   token: JSON.parse(localStorage.getItem("userAuth"))?.token || null,
+  username:JSON.parse(localStorage.getItem("userAuth"))?.username || null,
 };
 
 export const authSlice = createSlice({
@@ -20,6 +21,7 @@ export const authSlice = createSlice({
         id: null,
         email: null,
         token: null,
+        username:null
       });
     },
   },

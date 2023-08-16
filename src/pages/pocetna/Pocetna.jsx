@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../../containers/Layout'
-import {auth, getOglase} from '../../config/firebase'
+import {auth, getOglase, getUsers} from '../../config/firebase'
+import { useSelector } from 'react-redux';
 
 function Pocetna() {
   const [oglasi, setOglasi] = useState([]);
+  
   const userAuth = auth?.currentUser?.uid;
+
+
+ 
 
  
 
@@ -18,8 +23,10 @@ function Pocetna() {
       });
   }, []);
 
+
   return (
-    <Layout><div style={{width:'100%',display:"flex",  flexWrap:"wrap"}}>
+    <Layout>
+      {/* <div style={{width:'100%',display:"flex",  flexWrap:"wrap", marginTop:"400px"}}>
       
 {oglasi.map((oglas)=> {
  
@@ -41,7 +48,7 @@ function Pocetna() {
 </div>
  
 })}
-    </div>
+    </div> */}
       </Layout>
   )
 }

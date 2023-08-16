@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Pocetna from "./pages/pocetna/Pocetna";
 import Oglas from "./pages/oglas/Oglas";
@@ -12,10 +12,17 @@ import { ThemeProvider } from "@mui/material";
 import "./app.css";
 import MojiOglasi from "./pages/mojiOglasi/MojiOglasi";
 import DodajOglas from "./pages/dodajOglas/DodajOglas";
+import { getUsers } from "./config/firebase";
+import { authSlice } from "./store/authSlice";
+import { userSlice } from "./store/userSlice";
+import { store } from "./store/store";
 
 function App() {
   const themeState = useSelector((state) => state.theme);
   const currentUser = useSelector((state)=> state.auth)
+  const [users, setUsers] = useState([]);
+
+  const authState = useSelector((state) => state.auth);
   const selectedTheme = themeState.theme === "light" ? themeLight : themeDark;
 
   const RequireAuth = ({ children }) => {
@@ -23,8 +30,26 @@ function App() {
   };
 
   useEffect(()=> {
+    users.map((user)=>{
+      if(user.email === authState.email) {
+        store.dispatch(
+          authSlice.actions.setData({...authState, username:user.username}))
+      }
+      store.dispatch(userSlice.actions.setUser(user))
+    })
+
+},[users])
+
+  useEffect(()=> {
     localStorage.setItem("userAuth", JSON.stringify(currentUser))
   },[currentUser])
+
+  useEffect(()=> {
+    getUsers()
+    .then((data) => {
+      setUsers(data);
+    })
+  },[])
   
   return (
     <ThemeProvider theme={selectedTheme}>

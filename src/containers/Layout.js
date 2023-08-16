@@ -8,7 +8,7 @@ function Layout(props) {
   return (
     <Box style={{ backgroundColor: theme.palette.background, minHeight: "100vh"}}>
       <Nav />
-      <Box p={5} bgcolor={theme.palette.background}
+      <Box bgcolor={theme.palette.background}
        style={{display:"flex", justifyContent: "center", alignItems:"center"}}>
         {props.children}
       </Box>

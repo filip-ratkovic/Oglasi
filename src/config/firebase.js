@@ -6,6 +6,7 @@ import { authSlice } from "../store/authSlice";
 import { getFirestore, collection, getDocs, addDoc, doc, deleteDoc, getDoc, updateDoc } from "firebase/firestore";
 import {getStorage, ref, uploadBytes} from "firebase/storage"
 import { v4 } from "uuid";
+import { userSlice } from "../store/userSlice";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -45,7 +46,7 @@ export const signUp = async (email, password, username) => {
   return user;
 };
 
-export  const signInWithGoogle = async () => {
+export  const signInWithGoogle = async (username) => {
   try {
      const userCredential = await signInWithPopup(auth, googleProvider);
     const user = userCredential.user
@@ -54,6 +55,7 @@ export  const signInWithGoogle = async () => {
         id: user.uid,
         email: user.email,
         token: user.accessToken,
+        username:username
       })
     );
   } catch (error) {
@@ -65,6 +67,7 @@ export const logout = async () => {
   try {
     await signOut(auth);
     store.dispatch(authSlice.actions.logout());
+    store.dispatch(userSlice.actions.logout());
   } catch (error) {
     console.log(error);
   }

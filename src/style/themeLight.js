@@ -14,6 +14,15 @@ export const themeLight = createTheme({
       primary: "#19191c",
       secondary: "#242e34",
     },
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 500,
+      md: 800,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   
-  }
 });
