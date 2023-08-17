@@ -78,7 +78,7 @@ function DodajOglas() {
   });
 
   useEffect(() => {
-    setData({ ...data, kategorija: categoryName });
+    setData({ ...data, kategorija: categoryName});
   }, [categoryName]);
 
   useEffect(() => {

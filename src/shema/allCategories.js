@@ -1,10 +1,11 @@
 export const allCategories = [
-    "All",
-    "Alati",
+    "Sve",
+    "Aksesoari",
     "Audio",
+    "Časopisi, stripovi",
     "Elektronika",
-    "Fotografija",
     "Filmovi",
+    "Fotografija",
     "Građevinski materijali",
     "Hobi",
     "Hrana",
@@ -13,8 +14,7 @@ export const allCategories = [
     "Knjige",
     "Kozmetika",
     "Kućni aparati",
-    "Laptop",
-    "Ljubimci",
+    "Mašine i alati",
     "Mobilni telefoni",
     "Muzički instrumenti",
     "Nameštaj",
@@ -22,15 +22,16 @@ export const allCategories = [
     "Obuća",
     "Odeća",
     "Odeća za decu",
-    "Piće",
-    "Poslovi",
+    "Oprema za decu",
     "Računari",
     "Sport i rekreacija",
     "Sportska oprema",
+    "Stvari za bebe",
     "Tehnika",
     "Telefon",
     "Umetnost",
     "Vozila",
     "Vrt i bašta",
-    "Zdravlje"    
-];
+    "Zdravlje"
+  ]
+  
