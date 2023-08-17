@@ -147,13 +147,13 @@ function Filteri({ getFilters }) {
         name="stanje"
         id="stanje"
         onChange={handleInput}
-        style={{ width: "45%" }}
+        style={{ width: "100%", zIndex:"1111" }}
       >
-        <MenuItem value={"polovno"} selected>
+        <MenuItem value={"polovno"} style={{zIndex:"11",  backgroundColor:theme.palette.background}} selected>
           Polovno
         </MenuItem>
-        <MenuItem value={"novo"}>Novo</MenuItem>
-        <MenuItem value={"sve"}>Sve</MenuItem>
+        <MenuItem value={"novo"}  style={{zIndex:"11",  backgroundColor:theme.palette.background}}>Novo</MenuItem>
+        <MenuItem value={"sve"}  style={{zIndex:"11",  backgroundColor:theme.palette.background}}>Sve</MenuItem>
       </TextField>
       <Box id="price-container" style={{ marginTop: "30px" }}>
         <p

@@ -1,0 +1,97 @@
+.pocetna-oglas-card{
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.pocetna-card-img{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    border: 1px solid rgb(211, 211, 211, 0.5);
+    padding: 10px;
+    }
+
+.pocetna-card-img img {
+    aspect-ratio: 1/1;
+    width:100%;
+      object-fit: contain;
+      cursor: pointer;
+}
+
+.pocetna-card-text {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 18px;
+}
+.card-container {
+    width: 100%;
+    height: 100%;
+}
+
+.card2-container{
+    width: 100%;
+    display: flex;
+    height: 300px;
+    border: 1px solid pink;
+}
+
+.card2-img{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    border: 1px solid rgb(211, 211, 211, 0.5);
+    padding: 10px;
+    }
+
+.card2-img img {
+    aspect-ratio: 1/1;
+    height:100%;
+      object-fit: contain;
+      cursor: pointer;
+}
+
+.card2-text {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card2-naziv{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    padding: 10px;
+}
+.card2-ocena {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.card2-read-more {
+    background-color:transparent;
+    border: none;
+    outline: none;
+    color: lightgray;
+    cursor: pointer;
+}
+
+@media (max-width:1000px) {
+    .card2-container{
+        height: 200px;
+    }
+    
+    .pocetna-oglas-card {
+        height: 300px;
+    }
+}
