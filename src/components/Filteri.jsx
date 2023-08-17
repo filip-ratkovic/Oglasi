@@ -12,65 +12,62 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { allCategories } from "../shema/allCategories";
-import "./filteri.css"
+import "./filteri.css";
 
 function Filteri({ getFilters }) {
   const [categoryName, setCategoryName] = useState(allCategories[0]);
-  const [maxPrice, setMaxPrice] = useState(-Infinity)
-  const [lowestPrice, setLowestPrice] = useState(Infinity)
+  const [maxPrice, setMaxPrice] = useState(-Infinity);
+  const [lowestPrice, setLowestPrice] = useState(Infinity);
   const [value1, setValue1] = useState([-Infinity, Infinity]);
   const [data, setData] = useState({
-    stanje:"sve",
-    cena:value1,
-    kategorija:categoryName
+    stanje: "sve",
+    cena: value1,
+    kategorija: categoryName,
   });
-
 
   const minDistance = 10;
   const theme = useTheme();
 
   function valuetext(value) {
-    return `${value}$`;
+    return `${value}`;
   }
 
-  const sviOglasi = JSON.parse(localStorage.getItem("sviOglasi"))
+  const sviOglasi = JSON.parse(localStorage.getItem("sviOglasi"));
 
   const handlePrice = () => {
     let newLowestPrice = Infinity;
     let newMaxPrice = -Infinity;
-  
+
     sviOglasi.forEach((oglas) => {
       const cena = Number(oglas.cena);
-  
-     if(oglas.valuta === "din") {
+
+      if (oglas.valuta === "din") {
         if (cena < newLowestPrice) {
-            newLowestPrice = cena;
-          }
-          if (cena > newMaxPrice) {
-            newMaxPrice = cena;
-          }
-     }
-      else if (oglas.valuta === "eur") {
-        if ((cena*118) < newLowestPrice) {
-            newLowestPrice = (cena*118);
-          }
-          if ((cena*118) > newMaxPrice) {
-            newMaxPrice = (cena*118);
-          }
-     }
+          newLowestPrice = cena;
+        }
+        if (cena > newMaxPrice) {
+          newMaxPrice = cena;
+        }
+      } else if (oglas.valuta === "eur") {
+        if (cena * 118 < newLowestPrice) {
+          newLowestPrice = cena * 118;
+        }
+        if (cena * 118 > newMaxPrice) {
+          newMaxPrice = cena * 118;
+        }
+      }
     });
     setLowestPrice(newLowestPrice);
     setMaxPrice(newMaxPrice);
-    setValue1([newLowestPrice, newMaxPrice])
+    setValue1([newLowestPrice, newMaxPrice]);
   };
-  
 
-  useEffect(()=> {
-    handlePrice()
-  },[])
+  useEffect(() => {
+    handlePrice();
+  }, []);
 
   const handleChange1 = (event, newValue, activeThumb) => {
-    getFilters({ ...data, cena:newValue});
+    getFilters({ ...data, cena: newValue });
     if (!Array.isArray(newValue)) {
       return;
     }
@@ -81,7 +78,6 @@ function Filteri({ getFilters }) {
       setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
     }
   };
-  
 
   const handleCategory = (e) => {
     setCategoryName(e.target.value);
@@ -91,15 +87,18 @@ function Filteri({ getFilters }) {
     const value = e.target.value;
     const inputID = e.target.name;
     setData({ ...data, [inputID]: value, kategorija: categoryName });
-    getFilters({ ...data, [inputID]: value, kategorija: categoryName});
+    getFilters({ ...data, [inputID]: value, kategorija: categoryName });
   };
 
-
-  const clearFilters =()=> {
-    getFilters({kategorija:"Sve", stanje:"sve", cena:[-Infinity,Infinity]})
-    setData({kategorija:"Sve", stanje:"sve", cena:[-Infinity,Infinity]})
-  }
-
+  const clearFilters = () => {
+    setData({ kategorija: "Sve", stanje: "sve", cena: [-Infinity, Infinity] });
+    getFilters({
+      kategorija: "Sve",
+      stanje: "sve",
+      cena: [-Infinity, Infinity],
+    });
+    handlePrice();
+  };
 
   useEffect(() => {
     getFilters({ ...data, kategorija: categoryName });
@@ -117,7 +116,7 @@ function Filteri({ getFilters }) {
   };
   return (
     <Box className="pocetna-filteri">
-      <FormControl sx={{ width: "100%", mt: "30px" }}>
+      <FormControl sx={{ width: "100%", m: "30px 0" }}>
         <InputLabel id="demo-multiple-name-label">Kategorija</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
@@ -156,18 +155,47 @@ function Filteri({ getFilters }) {
         <MenuItem value={"novo"}>Novo</MenuItem>
         <MenuItem value={"sve"}>Sve</MenuItem>
       </TextField>
-      <p><span>{value1[0]}</span>           <span>{value1[1]}</span></p>
-      <Slider
-        getAriaLabel={() => 'Minimum distance'}
-        value={value1}
-        onChange={handleChange1}
-        valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
-        max={maxPrice}
-        min={lowestPrice}
-        disableSwap
-      />
-      <Button onClick={clearFilters}>Ocisti filtere</Button>
+      <Box id="price-container" style={{ marginTop: "30px" }}>
+        <p
+          className="price-box"
+          style={{
+            backgroundColor: theme.palette.text.primary,
+            color: theme.palette.background,
+          }}
+        >
+          {value1[0]} RSD
+        </p>
+        <p
+          className="price-box"
+          style={{
+            backgroundColor: theme.palette.text.primary,
+            color: theme.palette.background,
+          }}
+        >
+          {value1[1]} RSD
+        </p>
+      </Box>
+      <Box style={{ paddingInline: "10px" }}>
+        <Slider
+          getAriaLabel={() => "Minimum distance"}
+          value={value1}
+          onChange={handleChange1}
+          valueLabelDisplay="auto"
+          getAriaValueText={valuetext}
+          max={maxPrice}
+          min={lowestPrice}
+          disableSwap
+          className="filteri-display"
+        />
+      </Box>
+      <Box className="filteri-display">
+      <Button
+        variant="outlined"
+        onClick={clearFilters}
+      >
+        Ponisti sve
+      </Button>
+      </Box>
     </Box>
   );
 }

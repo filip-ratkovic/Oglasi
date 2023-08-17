@@ -1,3 +1,26 @@
 .pocetna-filteri {
     padding: 20px;
 }
+
+#price-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.price-box {
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-align: center;
+    display: flex;
+}
+
+.filteri-btn {
+    margin-top: 30px;
+}
+
+.filteri-display{
+    display: flex;
+    justify-content: center;
+}
