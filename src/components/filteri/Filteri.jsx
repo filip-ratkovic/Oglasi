@@ -11,7 +11,7 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { allCategories } from "../shema/allCategories";
+import { allCategories } from "../../shema/allCategories";
 import "./filteri.css";
 
 function Filteri({ getFilters }) {

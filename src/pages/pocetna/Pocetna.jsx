@@ -7,9 +7,9 @@ import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 
-import Filteri from "../../components/Filteri";
-import OglasiCard from "../../components/OglasiCard";
-import OglasiCard2 from "../../components/OglasiCard2";
+import Filteri from "../../components/filteri/Filteri";
+import OglasiCard from "../../components/oglasi/OglasiCard";
+import OglasiCard2 from "../../components/oglasi/OglasiCard2";
 import "./pocetna.css";
 function Pocetna() {
   const [oglasi, setOglasi] = useState([]);

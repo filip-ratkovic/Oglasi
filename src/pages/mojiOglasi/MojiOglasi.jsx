@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../containers/Layout";
-import OglasiCard2 from "../../components/OglasiCard2";
-import OglasiCard from "../../components/OglasiCard";
-import Filteri from "../../components/Filteri";
+import OglasiCard2 from "../../components/oglasi/OglasiCard2";
+import OglasiCard from "../../components/oglasi/OglasiCard";
+import Filteri from "../../components/filteri/Filteri";
 import { Box, Grid, InputAdornment, TextField } from "@mui/material";
 import AppsIcon from "@mui/icons-material/Apps";
 import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import SearchIcon from "@mui/icons-material/Search";
 import { auth, getOglase } from "../../config/firebase";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 function MojiOglasi() {
   const [oglasi, setOglasi] = useState([]);
@@ -17,8 +15,6 @@ function MojiOglasi() {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState([]);
   const [pocetnaStyle, setPocetnaStyle] = useState([12, 6, 4, 4]);
-  const navigate = useNavigate()
-  const authState = useSelector((state)=> state.auth)
 
 
   const handleSearch = (e) => {

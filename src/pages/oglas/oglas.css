@@ -1,0 +1,13 @@
+.ad-container {
+    width: 100%;
+    height: 90vh;
+    padding: 20px 50px;
+    display: flex;
+}
+
+.ad-text-container {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
