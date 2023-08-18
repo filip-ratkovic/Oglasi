@@ -50,16 +50,40 @@ padding-top: 30px;
     color: #e4ae65;
 }
 
-@media (max-width:700px) {
+@media (max-width:820px) {
     .pocetna-container {
         flex-direction: column;
+        margin: 10px;
+        padding: 0;
     }
     .pocetna-filteri {
         width: 100%;
         position: relative;
+        top: 0;
+        height: 100%;
     }
     .pocetna-oglasi-container {
         width: 100%;
         margin: 0;
     }
+}
+
+@media (max-width: 630px) {
+    .pocetna-oglasi-info {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .pocetna-raspored {
+        margin: 5px;
+       
+    }
+    .pocetna-broj-oglasa {
+        font-size: 15px;
+        margin: 5px;
+        margin-right: auto;
+    }
+   .pocetna-search {
+    width: 40%;
+   }
 }

@@ -14,7 +14,7 @@ function Pocetna() {
   const [oglasi, setOglasi] = useState([]);
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState([]);
-  const [pocetnaStyle, setPocetnaStyle] = useState([6, 6, 4, 4]);
+  const [pocetnaStyle, setPocetnaStyle] = useState([12, 6, 4, 4]);
 
   const userAuth = auth?.currentUser?.uid;
   const handleSearch = (e) => {
@@ -45,7 +45,7 @@ function Pocetna() {
         <Box className="pocetna-oglasi-container">
           <Box className="pocetna-oglasi-info">
             <Box className="pocetna-raspored">
-              <AppsIcon onClick={() => setPocetnaStyle([6, 6, 4, 4])} />
+              <AppsIcon onClick={() => setPocetnaStyle([12, 6, 4, 4])} />
               <DensityMediumIcon
                 onClick={() => setPocetnaStyle([12, 12, 12, 12])}
               />
@@ -96,7 +96,7 @@ function Pocetna() {
                     lg={pocetnaStyle[3]}
                     className="pocetna-oglas-card"
                   >
-                    {pocetnaStyle[0] === 12 ? (
+                    {pocetnaStyle[2] === 12 ? (
                       <OglasiCard2 oglas={oglas} />
                     ) : (
                       <OglasiCard oglas={oglas} />

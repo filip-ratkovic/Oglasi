@@ -204,7 +204,7 @@ const Login = () => {
               Wrong email or password!
             </Typography>}
             <Link
-              to={"/signup"}
+              to={"/registracija"}
               className="link"
               style={{ color: theme.palette.text.secondary }}
             >
