@@ -6,17 +6,16 @@ import AppsIcon from "@mui/icons-material/Apps";
 import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import SearchIcon from "@mui/icons-material/Search";
 
-import "./pocetna.css";
 import Filteri from "../../components/Filteri";
 import OglasiCard from "../../components/OglasiCard";
 import OglasiCard2 from "../../components/OglasiCard2";
+import "./pocetna.css";
 function Pocetna() {
   const [oglasi, setOglasi] = useState([]);
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState([]);
   const [pocetnaStyle, setPocetnaStyle] = useState([12, 6, 4, 4]);
 
-  const userAuth = auth?.currentUser?.uid;
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -25,8 +24,7 @@ function Pocetna() {
     setFilters(data);
   };
 
-  console.log(filters);
-  console.log(oglasi);
+
   useEffect(() => {
     getOglase()
       .then((data) => {

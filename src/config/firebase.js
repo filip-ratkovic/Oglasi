@@ -124,10 +124,10 @@ export const izbrisiOglas = async (id) => {
 
 
 export const getOglase = async () => {
-  const quotesCollection = collection(db, "Oglasi");
-  const quoteResults = await getDocs(quotesCollection);
-  const quoteList = quoteResults.docs.map((doc) => ({...doc.data(), id : doc.id}));
-  return quoteList;
+  const adsCollection = collection(db, "Oglasi");
+  const adResults = await getDocs(adsCollection);
+  const adList = adResults.docs.map((doc) => ({...doc.data(), id : doc.id}));
+  return adList;
 };
 
 export const getUsers = async () => {
