@@ -9,6 +9,7 @@ import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import SearchIcon from "@mui/icons-material/Search";
 import { auth, getOglase } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function MojiOglasi() {
   const [oglasi, setOglasi] = useState([]);
@@ -17,6 +18,7 @@ function MojiOglasi() {
   const [filters, setFilters] = useState([]);
   const [pocetnaStyle, setPocetnaStyle] = useState([12, 6, 4, 4]);
   const navigate = useNavigate()
+  const authState = useSelector((state)=> state.auth)
 
 
   const handleSearch = (e) => {
@@ -44,6 +46,7 @@ function MojiOglasi() {
         <Filteri getFilters={getFilters} />
         <Box className="pocetna-oglasi-container">
           <Box className="pocetna-oglasi-info">
+        
             <Box className="pocetna-raspored" style={{marginRight:"auto"}}>
               <AppsIcon onClick={() => setPocetnaStyle([12, 6, 4, 4])} />
               <DensityMediumIcon
