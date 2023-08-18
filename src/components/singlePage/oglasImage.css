@@ -1,4 +1,4 @@
-.add-img-cont{
+.ad-img-cont{
     width: 50%;
     height: 100%;
     display: flex;
@@ -40,3 +40,11 @@
     object-fit: contain;
 }
 
+ @media (max-width:850px) {
+  .ad-img-cont {
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 50px;
+  }
+ 
+}

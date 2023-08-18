@@ -17,7 +17,7 @@ function OglasImage({ adData }) {
 
 
   return (
-    <Box className="add-img-cont">
+    <Box className="ad-img-cont">
       <Swiper
         style={{
           "--swiper-navigation-color": theme.palette.primary.main,

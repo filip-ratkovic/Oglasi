@@ -35,3 +35,13 @@
     justify-content: space-between;
     margin-bottom: 20px;
   }
+
+  @media (max-width:850px) {
+    .ad-container {
+      flex-direction: column;
+      height: 100%;
+    }
+    .ad-text-container {
+      width: 100%;
+    }
+  }
