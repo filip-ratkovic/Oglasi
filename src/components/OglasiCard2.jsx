@@ -1,11 +1,16 @@
 import { Box } from "@mui/material";
 import React, { useState } from "react";
 import "./oglasiCard.css";
+import { useNavigate } from "react-router-dom";
 
 function OglasiCard2({ oglas }) {
   const [readMore, setReadMore] = useState(false);
+  const navigate= useNavigate();
+  
   return (
-    <Box className="card2-container">
+    <Box className="card2-container"
+    onClick={()=>{navigate(`/oglas/${oglas.id}`)}}
+    >
       <Box className="card2-img">
         <img src={oglas.img[0]} alt={oglas.naziv} />
       </Box>

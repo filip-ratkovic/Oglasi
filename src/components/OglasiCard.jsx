@@ -1,11 +1,15 @@
 import React from 'react'
 import { Box, Grid } from '@mui/material';
 import "./oglasiCard.css"
+import { useNavigate } from 'react-router-dom';
 
 function OglasiCard({oglas}) {
+  const navigate= useNavigate();
 
   return (
-    <Box className="card-container">
+    <Box className="card-container"
+    onClick={()=>{navigate(`/oglas/${oglas.id}`)}}
+  >
     <Box className="pocetna-card-img">
     <img src={oglas.img[0]} alt={oglas.naziv} />
     {/* <div>

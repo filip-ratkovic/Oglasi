@@ -55,7 +55,7 @@ function App() {
     <ThemeProvider theme={selectedTheme}>
       <Routes>
         <Route path="/" element={<Pocetna />} />
-        <Route path="/oglas" element={<Oglas />} />
+        <Route path="/oglas/:id" element={<Oglas />} />
         <Route path="/korisnik" element={<Korisnik />} />
         <Route
           path="/mojioglasi"

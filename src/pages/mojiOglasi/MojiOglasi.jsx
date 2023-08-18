@@ -8,6 +8,7 @@ import AppsIcon from "@mui/icons-material/Apps";
 import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import SearchIcon from "@mui/icons-material/Search";
 import { auth, getOglase } from "../../config/firebase";
+import { useNavigate } from "react-router-dom";
 
 function MojiOglasi() {
   const [oglasi, setOglasi] = useState([]);
@@ -15,7 +16,8 @@ function MojiOglasi() {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState([]);
   const [pocetnaStyle, setPocetnaStyle] = useState([12, 6, 4, 4]);
-  const [brojOglasa, setBrojOglasa] = useState(0);
+  const navigate = useNavigate()
+
 
   const handleSearch = (e) => {
     setSearch(e.target.value);

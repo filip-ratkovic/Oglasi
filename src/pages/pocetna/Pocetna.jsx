@@ -5,6 +5,7 @@ import { Box, Grid, InputAdornment, TextField } from "@mui/material";
 import AppsIcon from "@mui/icons-material/Apps";
 import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
 import Filteri from "../../components/Filteri";
 import OglasiCard from "../../components/OglasiCard";
@@ -15,6 +16,7 @@ function Pocetna() {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState([]);
   const [pocetnaStyle, setPocetnaStyle] = useState([12, 6, 4, 4]);
+  const navigate = useNavigate()
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
