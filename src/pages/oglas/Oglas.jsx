@@ -3,8 +3,9 @@ import "./oglas.css"
 import { useNavigate, useParams } from 'react-router-dom';
 import { getOglasById } from '../../config/firebase';
 import { Box, Button } from '@mui/material';
-import OglasImage from '../../components/image/OglasImage';
+import OglasImage from '../../components/singlePage/OglasImage';
 import Layout from '../../containers/Layout';
+import OglasText from '../../components/singlePage/OglasText';
 
 function Oglas() {
   const [adData, setAdData] = useState([]);
@@ -19,6 +20,8 @@ function Oglas() {
   useEffect(()=>{
     getAdData();
   },[])
+
+  console.log(adData)
   
   return (
    <Layout>
@@ -28,9 +31,8 @@ function Oglas() {
    >Nazad na početnu</Button>
      <Box className='ad-container'>
       <OglasImage adData={adData}/>
-      <Box className="ad-text-container">
 
-      </Box>
+      <OglasText adData={adData}/>
     </Box>
    </Box>
    </Layout>

@@ -1,13 +1,37 @@
 .ad-container {
-    width: 100%;
-    height: 90vh;
-    padding: 20px 50px;
-    display: flex;
+  width: 100%;
+  height: 100vh;
+  padding: 20px 50px;
+  display: flex;
 }
 
 .ad-text-container {
-    height: 100%;
-    width: 50%;
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  padding:0 20px;
+}
+
+.ad-small-det-text-left {
+    width: 25%;
+  }
+  .ad-small-det-left {
+    display: flex;
+
+  }
+  .ad-small-det-cont{
     display: flex;
     flex-direction: column;
-}
+    height: 100px;
+    justify-content: space-between;
+    margin-block: 20px;
+  }
+
+  .add-first-cont {
+    display: flex;
+    flex-direction: column;
+    height: 120px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }

@@ -52,7 +52,6 @@ function OglasImage({ adData }) {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
         centeredSlides={true}
-        centerInsufficientSlides={true}
       >
         {adData.img?.map((url) => {
           return (
