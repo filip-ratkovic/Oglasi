@@ -25,7 +25,7 @@ function Oglas() {
 
   return (
     <Layout>
-      <Box style={{ width: "100%" }}>
+      <Box style={{ width: "100%", position:"relative" }}>
         <Button
           variant="contained"
           onClick={() => navigate("/")}

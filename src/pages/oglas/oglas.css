@@ -13,12 +13,25 @@
   padding:0 20px;
 }
 
+.ad-text-up {
+  display: flex;
+  justify-content: space-between;
+  height: 35%;
+}
+
+.ad-text-userinfo{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+
 .ad-small-det-text-left {
-    width: 25%;
+    width: 50%;
   }
   .ad-small-det-left {
     display: flex;
-
   }
   .ad-small-det-cont{
     display: flex;
@@ -30,11 +43,11 @@
 
   .add-first-cont {
     display: flex;
-    flex-direction: column;
-    height: 120px;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    height: 30px;
+    align-items: center;
   }
+
+
 
   @media (max-width:850px) {
     .ad-container {
