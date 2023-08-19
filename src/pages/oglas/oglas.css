@@ -7,7 +7,7 @@
 
 .ad-text-container {
   height: 100%;
-  width: 50%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding:0 20px;
@@ -23,7 +23,7 @@
   .ad-small-det-cont{
     display: flex;
     flex-direction: column;
-    height: 100px;
+    height: 150px;
     justify-content: space-between;
     margin-block: 20px;
   }

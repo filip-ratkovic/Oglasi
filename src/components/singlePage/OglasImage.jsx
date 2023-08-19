@@ -42,7 +42,6 @@ function OglasImage({ adData }) {
       style={{
         width:"100%",
       height:"15%",
-      paddingInline:"10px"
     }}
         onSwiper={setThumbsSwiper}
         spaceBetween={10}

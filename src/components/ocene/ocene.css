@@ -2,6 +2,8 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    padding-inline: 30px;
+
 }
 
 .ocene-header {
@@ -19,4 +21,6 @@
 .ocene-i-prati{
     display: flex;
     justify-content: space-between;
+    margin-block: 20px;
+    align-items: center;
 }
