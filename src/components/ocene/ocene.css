@@ -24,3 +24,31 @@
     margin-block: 20px;
     align-items: center;
 }
+
+.ocene-korisnika {
+    width: 100%;
+    padding: 20px;
+}
+
+.ocene-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-block: 30px;
+    background-color: rgb(211, 211, 211, 0.5);
+box-shadow: 4px 6px 10px rgb(211, 211, 211, 0.15);
+padding: 10px;
+}
+
+.ocene-card-select {
+    margin-block: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ocene-card-komentar {
+    width: 100%;
+    padding-block: 10px;
+    background-color:whitesmoke ;
+    margin-bottom: 10px;
+}

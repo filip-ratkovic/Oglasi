@@ -32,7 +32,7 @@ function OglasText({user,adData,mainUser}) {
   }
   return (
     <Box className="ad-text-container">
-      <DodajKomentar adActive={adActive} setAdActive={setAdActive} adData={adData} user={user} />
+    <DodajKomentar adActive={adActive} setAdActive={setAdActive} adData={adData} user={user} mainUser={mainUser} />
       <Box className="ad-text-up">
         <Box className="ad-text-header">
           <h1>{adData?.naziv}</h1>
@@ -99,7 +99,7 @@ function OglasText({user,adData,mainUser}) {
         </Button>
         
         }
-          <p>Ćlan od 25.06.2023.</p>
+          <p>{user.datum}</p>
           <ButtonGroup
             disableElevation
             variant="contained"

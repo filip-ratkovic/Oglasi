@@ -20,7 +20,7 @@ import { getUsers, updateUser } from "../../config/firebase";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-function DodajKomentar({ adActive, setAdActive, user,adData}) {
+function DodajKomentar({ adActive, setAdActive, user,adData, mainUser}) {
   const authState = useSelector((state) => state.auth);
 
   const theme = useTheme();
@@ -44,7 +44,7 @@ function DodajKomentar({ adActive, setAdActive, user,adData}) {
       } else {
         ocene.push(authState.id)
         if (values.ocena === "pozitivna") {
-          pozitivnaOcena.push({ ...values, user: authState.id });
+          pozitivnaOcena.push({ ...values, user: authState.id, ime: mainUser.ime_prezime });
 
           await updateUser(user.id, {
             ...user,
