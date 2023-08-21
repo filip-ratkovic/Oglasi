@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../pages/oglas/oglas.css";
 import { Box, Button, ButtonGroup, useTheme } from "@mui/material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
@@ -7,21 +7,32 @@ import SendIcon from "@mui/icons-material/Send";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import DodajKomentar from "./DodajKomentar";
+import { updateUser } from "../../config/firebase";
 
-function OglasText(props) {
+function OglasText({user,adData,mainUser}) {
   const [adActive, setAdActive] = useState(false);
-  const adData = props.adData;
+  const [followed, setFollowed] = useState(false);
   const theme = useTheme();
-
+  
   const handleAdComment = () => {
     setAdActive(true);
   };
 
+  const handleFollowUser = async () => {
+    let newFollow = mainUser.follow;
+     newFollow.push(user.userID)
+    await updateUser(mainUser.id, {...mainUser, follow : newFollow});
+    setFollowed(mainUser.follow)
+  }
 
-
+  const handleUnfollowUser = async () => {
+    let newFollow = mainUser.follow.filter((el)=> el !== user.userID);
+    await updateUser(mainUser.id, {...mainUser, follow : newFollow});
+    setFollowed(newFollow)
+  }
   return (
     <Box className="ad-text-container">
-      <DodajKomentar adActive={adActive} setAdActive={setAdActive}/>
+      <DodajKomentar adActive={adActive} setAdActive={setAdActive} adData={adData} user={user} />
       <Box className="ad-text-up">
         <Box className="ad-text-header">
           <h1>{adData?.naziv}</h1>
@@ -61,7 +72,8 @@ function OglasText(props) {
             <PersonIcon style={{ color: theme.palette.primary.main }} />
             <h2>{adData?.ime_prezime?.toUpperCase()}</h2>
           </Box>
-          <Button
+        { mainUser.follow?.includes(user.userID) ? 
+        <Button
             size="small"
             variant="contained"
             style={{
@@ -69,9 +81,24 @@ function OglasText(props) {
               display: "flex",
               justifyContent: "space-between",
             }}
+            onClick={handleUnfollowUser}
           >
-            Prati <BookmarkIcon />{" "}
-          </Button>
+            Odprati <BookmarkIcon />
+          </Button> :
+          <Button
+          size="small"
+          variant="contained"
+          style={{
+            width: "100px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+          onClick={handleFollowUser}
+        >
+          Prati <BookmarkIcon />
+        </Button>
+        
+        }
           <p>Ćlan od 25.06.2023.</p>
           <ButtonGroup
             disableElevation
@@ -88,14 +115,14 @@ function OglasText(props) {
                 width: "80px",
               }}
             >
-              <ThumbUpIcon style={{ marginRight: "5px" }} /> 23
+              <ThumbUpIcon style={{ marginRight: "5px" }} /> {user.pozitivna_ocena?.length}
             </Button>
             <Button
               onClick={handleAdComment}
               variant="outlined"
               style={{ borderRadius: "30px", color: "red", width: "80px" }}
             >
-              <ThumbDownAltIcon style={{ marginRight: "5px" }} />1
+              <ThumbDownAltIcon style={{ marginRight: "5px" }} /> {user.negativna_ocena?.length}
             </Button>
           </ButtonGroup>
 

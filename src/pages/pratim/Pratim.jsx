@@ -9,12 +9,14 @@ import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import SearchIcon from "@mui/icons-material/Search";
 import { auth, getOglase } from "../../config/firebase";
 
-function MojiOglasi() {
+function Pratim() {
   const [oglasi, setOglasi] = useState([]);
   const userAuth = auth?.currentUser?.uid;
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState([]);
   const [pocetnaStyle, setPocetnaStyle] = useState([12, 6, 4, 4]);
+  const mainUser = JSON.parse(localStorage.getItem("mainUser"))
+  
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -40,7 +42,7 @@ function MojiOglasi() {
        <div className="pocetna-container">
         <Filteri getFilters={getFilters} />
         <Box className="pocetna-oglasi-container">
-      <h1>Moji oglasi</h1>
+        <h1>Pratim</h1>
           <Box className="pocetna-oglasi-info">
         
             <Box className="pocetna-raspored" style={{marginRight:"auto"}}>
@@ -76,7 +78,7 @@ function MojiOglasi() {
               }
 
               if (
-                (oglas.userID === userAuth) &&
+                (mainUser.follow?.includes(oglas.userID)) &&
                 oglas.naziv.toLowerCase().includes(search) &&
                 (filters.kategorija === oglas.kategorija ||
                   filters.kategorija === "Sve") &&
@@ -109,4 +111,4 @@ function MojiOglasi() {
   );
 }
 
-export default MojiOglasi;
+export default Pratim;

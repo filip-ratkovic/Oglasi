@@ -5,23 +5,9 @@ import { getUsers } from "../../config/firebase";
 import "./ocene.css"
 import { Box } from "@mui/material";
 
-function Ocene({ adData }) {
-  const [user, setUser] = useState([]);
+function Ocene({ adData, user }) {
   const authState = useSelector((state) => state.auth);
-
-  const getUsersData = async () => {
-    const userRes = await getUsers();
-    userRes.forEach((user) => {
-      if (user.userID === authState.id) {
-        setUser(user);
-      }
-    });
-  };
-  console.log(user)
-
-  useEffect(() => {
-    getUsersData();
-  }, []);
+  
   return <Box className="ocene-container">
 <Box className="ocene-header">
   <Box>

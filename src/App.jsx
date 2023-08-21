@@ -16,6 +16,7 @@ import { getUsers } from "./config/firebase";
 import { authSlice } from "./store/authSlice";
 import { userSlice } from "./store/userSlice";
 import { store } from "./store/store";
+import Pratim from "./pages/pratim/Pratim";
 
 function App() {
   const themeState = useSelector((state) => state.theme);
@@ -34,6 +35,8 @@ function App() {
       if(user.email === authState.email) {
         store.dispatch(
           authSlice.actions.setData({...authState, username:user.username}))
+          localStorage.setItem("mainUser", JSON.stringify(user))
+
       }
       store.dispatch(userSlice.actions.setUser(user))
     })
@@ -57,6 +60,7 @@ function App() {
         <Route path="/" element={<Pocetna />} />
         <Route path="/oglas/:id" element={<Oglas />} />
         <Route path="/korisnik" element={<Korisnik />} />
+        <Route path="/pratim" element={<Pratim />} />
         <Route
           path="/mojioglasi"
           element={

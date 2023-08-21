@@ -22,7 +22,7 @@ import "./nav.css";
 import { MaterialUISwitch } from "../../shema/MaterialUISwitch";
 
 const pages = ['Pocetna', 'Dodaj oglas', 'Moji oglasi'];
-const settings = ['Profil', 'Pratim', 'Ocene', 'Logout'];
+const settings = ['Profil', 'Pratim', 'Logout'];
 
 
 function Nav() {
@@ -237,12 +237,8 @@ function Nav() {
                   <Typography textAlign="center" onClick={()=>navigate(`/profil/${userState.userID}`)}>Profil</Typography>
                 </MenuItem>
 
-                <MenuItem key="Ocene" onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" onClick={()=>navigate(`/ocene/${userState.userID}`)}>Ocene</Typography>
-                </MenuItem>
-
                 <MenuItem key="Pratim" onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" onClick={()=>navigate(`/pratim/${userState.userID}`)}>Pratim</Typography>
+                  <Typography textAlign="center" onClick={()=>navigate(`/pratim`)}>Pratim</Typography>
                 </MenuItem>
 
                 <MenuItem key="logout" onClick={logout}>

@@ -143,6 +143,11 @@ export const updateOglas = async (id, data) => {
   return await updateDoc(docRef, data);
 };
 
+export const updateUser = async (id, data) => {
+  const docRef = doc(db, "users", id);
+  return await updateDoc(docRef, data);
+};
+
 export const getOglasById = async (id) => {
   const docRef = doc(db, "Oglasi", id);
   const docSnap = await getDoc(docRef);
