@@ -70,7 +70,7 @@ function OglasText({user,adData,mainUser}) {
         <Box className="ad-text-userinfo">
           <Box className="add-first-cont">
             <PersonIcon style={{ color: theme.palette.text.primary, marginRight:"10px"}} />
-            <h2>{adData?.ime_prezime?.toUpperCase()}</h2>
+            <h2>{adData?.ime_prezime}</h2>
           </Box>
         { mainUser.follow?.includes(user.userID) ? 
         <Button

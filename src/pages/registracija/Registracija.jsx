@@ -52,7 +52,9 @@ const Registracija = () => {
   const signUpSubmit = async (values) => {
     try {
       const res = await signUp(values.email, values.password, values.username);
-      await addUsers({ ...values, userID: res.uid, email: res.email, password:"", confirm_password:"" });
+      await addUsers({ ...values, userID: res.uid, email: res.email, password:"", confirm_password:"", 
+      ocene:[], pozitivna_ocena:[], negativna_ocena:[], follow:[]
+    });
       navigate("/");
     } catch (error) {
       alert(error);

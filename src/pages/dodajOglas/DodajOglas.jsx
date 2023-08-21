@@ -393,7 +393,7 @@ function DodajOglas() {
                 : potvrdiOglas();
             }}
             variant="outlined"
-            style={{ zIndex: 0, marginTop: "30px", fontSize: "18px" }}
+            style={{ zIndex: 0, marginTop: "30px", fontSize: "18px", backgroundColor:theme.palette.text.primary, color:theme.palette.background }}
           >
             Potvrdi
           </Button>
