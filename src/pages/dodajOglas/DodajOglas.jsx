@@ -30,7 +30,6 @@ function DodajOglas() {
 
   const navigate = useNavigate();
   const theme = useTheme();
-  // const imageRef = ref(storage, `oglasi/${file.name + v4()}`);
   const MenuProps = {
     PaperProps: {
       style: {
@@ -78,7 +77,7 @@ function DodajOglas() {
   });
 
   useEffect(() => {
-    setData({ ...data, kategorija: categoryName});
+    setData({ ...data, kategorija: categoryName });
   }, [categoryName]);
 
   useEffect(() => {
@@ -103,7 +102,10 @@ function DodajOglas() {
 
   return (
     <Layout>
-      <Box className="add-container">
+      <Box
+        className="add-container"
+        style={{ color: theme.palette.text.primary }}
+      >
         <Box className="add-image">
           <section className="file-input">
             <input
@@ -112,13 +114,26 @@ function DodajOglas() {
               name="file"
               multiple
               onChange={(e) => {
-                 (imageList.length + e.target.files.length)> 15 ? alert("Najvise 15 slika") :
-                setFile(e.target.files);
+                imageList.length + e.target.files.length > 15
+                  ? alert("Najvise 15 slika")
+                  : setFile(e.target.files);
               }}
+              style={{ width: "100%" }}
             />
-            <span className="button">Choose</span>
+            <span
+              className="button"
+              style={{
+                backgroundColor: theme.palette.secondary.main,
+                color: "white",
+                borderRadius: "8px",
+              }}
+            >
+              Choose
+            </span>
             <span className="label" data-js-label>
-              {imageList.length === 0 ? "Najvise 15 slika" : `Odabranih slika: ${imageList.length} `}
+              {imageList.length === 0
+                ? "Najvise 15 slika"
+                : `Odabranih slika: ${imageList.length} `}
             </span>
           </section>
 
@@ -159,7 +174,10 @@ function DodajOglas() {
               placeholder="Iphone 11 pro"
               onChange={handleInput}
               label="Naziv proizvoda"
-              style={{ width: "45%" }}
+              style={{
+                width: "45%",
+                backgroundColor: theme.palette.primary.main,
+              }}
               aria-describedby="component-error-text"
             />
             <TextField
@@ -169,12 +187,19 @@ function DodajOglas() {
               placeholder="+381666646640"
               onChange={handleInput}
               label="Broj telefona "
-              style={{ width: "45%" }}
+              style={{
+                width: "45%",
+                backgroundColor: theme.palette.primary.main,
+              }}
             />
           </div>
 
           <TextField
-            style={{ width: "100%", marginTop: "30px" }}
+            style={{
+              width: "100%",
+              marginTop: "30px",
+              backgroundColor: theme.palette.primary.main,
+            }}
             label="Opis proizvoda"
             type="text"
             id="opis"
@@ -183,31 +208,34 @@ function DodajOglas() {
             onChange={handleInput}
             rows={3}
             multiline
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: theme.palette.primary.main,
-                },
-              },
-            }}
+            // sx={{
+            //   "& .MuiOutlinedInput-root": {
+            //     "& fieldset": {
+            //       borderColor: theme.palette.primary.light,
+            //     },
+            //   },
+            // }}
           />
 
           <div className="category-input">
             <TextField
-              style={{ width: "55%" }}
+              style={{
+                width: "55%",
+                backgroundColor: theme.palette.primary.main,
+              }}
               label="Cena"
               type="number"
               id="cena"
               name="cena"
               placeholder="Cena"
               onChange={handleInput}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: theme.palette.primary.main,
-                  },
-                },
-              }}
+              // sx={{
+              //   "& .MuiOutlinedInput-root": {
+              //     "& fieldset": {
+              //       borderColor: theme.palette.primary.light,
+              //     },
+              //   },
+              // }}
             />
             <TextField
               select
@@ -216,12 +244,30 @@ function DodajOglas() {
               name="valuta"
               id="valuta"
               onChange={handleInput}
-              style={{ width: "40%" }}
+              style={{
+                width: "40%",
+                backgroundColor: theme.palette.primary.main,
+              }}
             >
-              <MenuItem value={"din"} selected>
+              <MenuItem
+                value={"din"}
+                selected
+                style={{
+                  width: "100%",
+                  backgroundColor: theme.palette.primary.main,
+                }}
+              >
                 DIN
               </MenuItem>
-              <MenuItem value={"eur"}>EUR</MenuItem>
+              <MenuItem
+                value={"eur"}
+                style={{
+                  width: "100%",
+                  backgroundColor: theme.palette.primary.main,
+                }}
+              >
+                EUR
+              </MenuItem>
             </TextField>
           </div>
 
@@ -232,7 +278,11 @@ function DodajOglas() {
             placeholder="Unesite grad"
             onChange={handleInput}
             label="Lokacija"
-            style={{ width: "100%", marginTop: "30px" }}
+            style={{
+              width: "100%",
+              marginTop: "30px",
+              backgroundColor: theme.palette.primary.main,
+            }}
           />
 
           <div className="category-input">
@@ -243,12 +293,30 @@ function DodajOglas() {
               name="stanje"
               id="stanje"
               onChange={handleInput}
-              style={{ width: "45%" }}
+              style={{
+                width: "45%",
+                backgroundColor: theme.palette.primary.main,
+              }}
             >
-              <MenuItem value={"polovno"} selected>
+              <MenuItem
+                value={"polovno"}
+                selected
+                style={{
+                  width: "100%",
+                  backgroundColor: theme.palette.primary.main,
+                }}
+              >
                 Polovno
               </MenuItem>
-              <MenuItem value={"novo"}>Novo</MenuItem>
+              <MenuItem
+                value={"novo"}
+                style={{
+                  width: "100%",
+                  backgroundColor: theme.palette.primary.main,
+                }}
+              >
+                Novo
+              </MenuItem>
             </TextField>
 
             <TextField
@@ -258,17 +326,30 @@ function DodajOglas() {
               id="zamena"
               defaultValue={"da"}
               onChange={handleInput}
-              style={{ width: "45%" }}
+              style={{
+                width: "45%",
+                backgroundColor: theme.palette.primary.main,
+              }}
             >
               <MenuItem
                 value={"da"}
                 id="zamena"
                 selected
-                style={{ width: "150px" }}
+                style={{
+                  width: "150px",
+                  backgroundColor: theme.palette.primary.main,
+                }}
               >
                 Da
               </MenuItem>
-              <MenuItem value={"ne"} id="zamena">
+              <MenuItem
+                value={"ne"}
+                id="zamena"
+                style={{
+                  width: "150px",
+                  backgroundColor: theme.palette.primary.main,
+                }}
+              >
                 Ne
               </MenuItem>
             </TextField>
@@ -283,6 +364,10 @@ function DodajOglas() {
                 onChange={handleCategory}
                 input={<OutlinedInput label="Kategorija" />}
                 MenuProps={MenuProps}
+                style={{
+                  width: "100%",
+                  backgroundColor: theme.palette.primary.main,
+                }}
               >
                 {allCategories.map((name) => (
                   <MenuItem
@@ -290,6 +375,10 @@ function DodajOglas() {
                     value={name}
                     id={name}
                     className="category-dropdown"
+                    style={{
+                      width: "100%",
+                      backgroundColor: theme.palette.primary.main,
+                    }}
                   >
                     {name}
                   </MenuItem>
@@ -298,9 +387,10 @@ function DodajOglas() {
             </FormControl>
           </div>
           <Button
-            onClick={()=>{
-              imageList.length<1 ? alert("Niste dodali slike") :
-              potvrdiOglas()
+            onClick={() => {
+              imageList.length < 1
+                ? alert("Niste dodali slike")
+                : potvrdiOglas();
             }}
             variant="outlined"
             style={{ zIndex: 0, marginTop: "30px", fontSize: "18px" }}

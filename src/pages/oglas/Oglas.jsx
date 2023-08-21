@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./oglas.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { getOglasById, getUsers } from "../../config/firebase";
-import { Box, Button } from "@mui/material";
+import { Box, Button, useTheme } from "@mui/material";
 import OglasImage from "../../components/singlePage/OglasImage";
 import Layout from "../../containers/Layout";
 import OglasText from "../../components/singlePage/OglasText";
@@ -16,6 +16,7 @@ function Oglas() {
   const authState = useSelector((state) => state.auth);
   const [user, setUser] = useState([]);
   const [mainUser, setMainUser] = useState([])
+  const theme = useTheme()
 
   const getAdData = async () => {
     const adRes = await getOglasById(params.id);
@@ -45,11 +46,12 @@ function Oglas() {
         <Button
           variant="contained"
           onClick={() => navigate("/")}
-          style={{ margin: "20px 50px" }}
+          style={{ margin: "20px 50px", backgroundColor:theme.palette.text.primary, color:theme.palette.background}}
         >
           Nazad na početnu
         </Button>
-        <Box className="ad-container">
+        <Box className="ad-container" style={{color:theme.palette.text.primary}}
+>
           <OglasImage adData={adData} />
 
         <OglasText adData={adData} user={user} mainUser={mainUser}/>

@@ -39,7 +39,7 @@
     width: 100%;
     display: flex;
     height: 300px;
-    border: 1px solid pink;
+    margin-bottom: 30px;
 }
 
 .card2-img{
@@ -81,7 +81,6 @@
     background-color:transparent;
     border: none;
     outline: none;
-    color: lightgray;
     cursor: pointer;
 }
 
@@ -139,5 +138,11 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
+    }
+
+    .pocetna-card-img{
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../containers/Layout";
-import { auth, getOglase } from "../../config/firebase";
-import { Box, Grid, InputAdornment, TextField } from "@mui/material";
+import { getOglase } from "../../config/firebase";
+import { Box, Grid, InputAdornment, TextField, useTheme } from "@mui/material";
 import AppsIcon from "@mui/icons-material/Apps";
 import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import SearchIcon from "@mui/icons-material/Search";
@@ -17,6 +17,7 @@ function Pocetna() {
   const [filters, setFilters] = useState([]);
   const [pocetnaStyle, setPocetnaStyle] = useState([12, 6, 4, 4]);
   const navigate = useNavigate()
+  const theme = useTheme()
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -43,7 +44,7 @@ function Pocetna() {
       <div className="pocetna-container">
         <Filteri getFilters={getFilters} />
         <Box className="pocetna-oglasi-container">
-          <Box className="pocetna-oglasi-info">
+          <Box className="pocetna-oglasi-info" style={{background:theme.palette.primary.main, color:theme.palette.text.primary}}>
             <Box className="pocetna-raspored">
               <AppsIcon onClick={() => setPocetnaStyle([12, 6, 4, 4])} />
               <DensityMediumIcon
@@ -66,6 +67,7 @@ function Pocetna() {
                 }}
                 variant="outlined"
                 size="small"
+                style={{background:theme.palette.primary.light, borderRadius:"8px"}}
               />
             </Box>
           </Box>
@@ -97,7 +99,8 @@ function Pocetna() {
                     className="pocetna-oglas-card"
                   >
                     {pocetnaStyle[2] === 12 ? (
-                      <OglasiCard2 oglas={oglas} />
+                      <OglasiCard2 oglas={oglas} 
+                      />
                     ) : (
                       <OglasiCard oglas={oglas} />
                     )}

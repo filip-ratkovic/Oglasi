@@ -2,10 +2,12 @@ import { Box } from "@mui/material";
 import React, { useState } from "react";
 import "./oglasiCard.css";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "@emotion/react";
 
 function OglasiCard2({ oglas }) {
   const [readMore, setReadMore] = useState(false);
   const navigate= useNavigate();
+  const theme = useTheme()
   
   return (
     <Box className="card2-container"
@@ -14,7 +16,7 @@ function OglasiCard2({ oglas }) {
       <Box className="card2-img">
         <img src={oglas.img[0]} alt={oglas.naziv} />
       </Box>
-      <Box className="card2-text">
+      <Box className="card2-text" style={{color:theme.palette.text.primary}}>
         <Box className="card2-naziv">
           <Box id="card2-naziv">
             <h3>{oglas.naziv}</h3>

@@ -1,10 +1,12 @@
 import React from 'react'
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, useTheme } from '@mui/material';
 import "./oglasiCard.css"
 import { useNavigate } from 'react-router-dom';
 
 function OglasiCard({oglas}) {
   const navigate= useNavigate();
+  const theme = useTheme()
+  
 
   return (
     <Box className="card-container"
@@ -14,7 +16,7 @@ function OglasiCard({oglas}) {
     <img src={oglas.img[0]} alt={oglas.naziv} />
     </Box>
         <Box className="pocetna-card-text">
-        <p>{oglas.naziv}</p>
+        <p style={{color:theme.palette.text.primary}}>{oglas.naziv}</p>
         <p className='cena-gold'>{oglas.cena} {oglas.valuta === "din" ? "RSD" : "€"}</p>
         </Box>
     </Box>

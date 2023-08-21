@@ -77,7 +77,9 @@ function DodajKomentar({ adActive, setAdActive, user,adData, mainUser}) {
       }`}
     >
       <Box className="dodaj-container">
-        <ClearIcon onClick={handleExitComment} className="exit-btn" />
+        <ClearIcon onClick={handleExitComment} 
+        style={{color:"black"}}
+        className="exit-btn" />
         <p id="dodaj-header">Dodaj komentar</p>
         <Box className="dodaj-info-cont">
           <Formik
@@ -118,7 +120,7 @@ function DodajKomentar({ adActive, setAdActive, user,adData, mainUser}) {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.ocena}
-                    style={{ width: "400px", maxWidth: "100%" }}
+                    style={{ width: "400px", maxWidth: "80%" }}
                     sx={{
                       "& label": {
                         color: "grey",
@@ -147,7 +149,7 @@ function DodajKomentar({ adActive, setAdActive, user,adData, mainUser}) {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.komunikacija}
-                    style={{ width: "400px", maxWidth: "100%" }}
+                    style={{ width: "400px", maxWidth: "80%" }}
                     sx={{
                       "& label": {
                         color: "grey",
@@ -176,7 +178,7 @@ function DodajKomentar({ adActive, setAdActive, user,adData, mainUser}) {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.dogovor}
-                    style={{ width: "400px", maxWidth: "100%" }}
+                    style={{ width: "400px", maxWidth: "80%" }}
                     sx={{
                       "& label": {
                         color: "grey",
@@ -202,7 +204,7 @@ function DodajKomentar({ adActive, setAdActive, user,adData, mainUser}) {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.komentar}
-                    style={{ width: "400px", maxWidth: "100%" }}
+                    style={{ width: "400px", maxWidth: "80%" }}
                     sx={{
                       "& label": {
                         color: "grey",
@@ -220,7 +222,7 @@ function DodajKomentar({ adActive, setAdActive, user,adData, mainUser}) {
                   mt={5}
                   sx={{
                     display: "flex",
-                    justifyContent: "space-between",
+                    justifyContent: "center",
                     width: "410px",
                     gap: "30px",
                   }}

@@ -69,7 +69,7 @@ function OglasText({user,adData,mainUser}) {
 
         <Box className="ad-text-userinfo">
           <Box className="add-first-cont">
-            <PersonIcon style={{ color: theme.palette.primary.main }} />
+            <PersonIcon style={{ color: theme.palette.text.primary, marginRight:"10px"}} />
             <h2>{adData?.ime_prezime?.toUpperCase()}</h2>
           </Box>
         { mainUser.follow?.includes(user.userID) ? 
@@ -80,18 +80,21 @@ function OglasText({user,adData,mainUser}) {
               width: "100px",
               display: "flex",
               justifyContent: "space-between",
+              color: "white",
+              backgroundColor: theme.palette.text.secondary
             }}
-            onClick={handleUnfollowUser}
-          >
+            onClick={handleUnfollowUser}>
             Odprati <BookmarkIcon />
           </Button> :
           <Button
           size="small"
           variant="contained"
           style={{
-            width: "100px",
             display: "flex",
+            width: "100px",
             justifyContent: "space-between",
+            color: "white",
+            backgroundColor: theme.palette.text.secondary
           }}
           onClick={handleFollowUser}
         >
@@ -99,7 +102,7 @@ function OglasText({user,adData,mainUser}) {
         </Button>
         
         }
-          <p>{user.datum}</p>
+          <p>Clan od {user.datum}</p>
           <ButtonGroup
             disableElevation
             variant="contained"
@@ -131,6 +134,8 @@ function OglasText({user,adData,mainUser}) {
             style={{
               display: "flex",
               justifyContent: "space-between",
+              color: "white",
+              backgroundColor: theme.palette.text.secondary
             }}
           >
             Posalji poruku
@@ -138,9 +143,6 @@ function OglasText({user,adData,mainUser}) {
           </Button>
         </Box>
       </Box>
-
-      <Box className="ocene-i-prati"></Box>
-      <Box className="ocene-i-prati"></Box>
 
       <p>{adData.opis}</p>
 

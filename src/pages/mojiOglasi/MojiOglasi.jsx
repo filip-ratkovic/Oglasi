@@ -3,7 +3,7 @@ import Layout from "../../containers/Layout";
 import OglasiCard2 from "../../components/oglasi/OglasiCard2";
 import OglasiCard from "../../components/oglasi/OglasiCard";
 import Filteri from "../../components/filteri/Filteri";
-import { Box, Grid, InputAdornment, TextField } from "@mui/material";
+import { Box, Grid, InputAdornment, TextField, useTheme } from "@mui/material";
 import AppsIcon from "@mui/icons-material/Apps";
 import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import SearchIcon from "@mui/icons-material/Search";
@@ -15,6 +15,7 @@ function MojiOglasi() {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState([]);
   const [pocetnaStyle, setPocetnaStyle] = useState([12, 6, 4, 4]);
+  const theme = useTheme()
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -40,14 +41,16 @@ function MojiOglasi() {
        <div className="pocetna-container">
         <Filteri getFilters={getFilters} />
         <Box className="pocetna-oglasi-container">
-      <h1>Moji oglasi</h1>
-          <Box className="pocetna-oglasi-info">
-        
-            <Box className="pocetna-raspored" style={{marginRight:"auto"}}>
+      <h1 style={{color:theme.palette.text.primary}}>Moji oglasi</h1>
+      <Box className="pocetna-oglasi-info" style={{background:theme.palette.primary.main, color:theme.palette.text.primary}}>
+            <Box className="pocetna-raspored">
               <AppsIcon onClick={() => setPocetnaStyle([12, 6, 4, 4])} />
               <DensityMediumIcon
                 onClick={() => setPocetnaStyle([12, 12, 12, 12])}
               />
+            </Box>
+            <Box className="pocetna-broj-oglasa">
+              Broj oglasa: {oglasi.length}
             </Box>
             <Box className="pocetna-search">
               <TextField
@@ -62,10 +65,10 @@ function MojiOglasi() {
                 }}
                 variant="outlined"
                 size="small"
+                style={{background:theme.palette.primary.light, borderRadius:"8px"}}
               />
             </Box>
           </Box>
-
           <Grid container className="pocetna-oglasi" spacing={3}>
             {oglasi.map((oglas) => {
               let cena = 0;

@@ -12,7 +12,7 @@ export const themeDark = createTheme({
    
     background: "#06141b", //black
     text: {
-      primary: "#fafafa",  //white
+      primary: "#f8f9fa",  //white
       secondary: "#93a0a3", //white darker
     },
   },
