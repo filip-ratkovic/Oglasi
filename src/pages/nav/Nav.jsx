@@ -12,6 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from '@mui/icons-material/Person';
 import { auth, logout } from "../../config/firebase";
+import LoyaltyIcon from '@mui/icons-material/Loyalty';
 
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
@@ -57,7 +58,7 @@ function Nav() {
       <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <LoyaltyIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -68,13 +69,13 @@ function Nav() {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: theme.palette.text.primary,
               textDecoration: 'none',
               cursor:"pointer"
             }}
             onClick={()=>navigate("/")}
           >
-            LOGO
+            OGLASI
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -103,12 +104,15 @@ function Nav() {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: 'block', md: 'none', mt:"10px" },
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" onClick={()=>{
+                <MenuItem key={page} 
+                onClick={handleCloseNavMenu} 
+                style={{backgroundColor:theme.palette.primary.main}}>
+                  <Typography textAlign="center"
+                   onClick={()=>{
                     const link = page.replaceAll(' ', '');
                     page === "Pocetna" ? navigate("/") :
                     navigate(`/${link.toLowerCase()}`)
@@ -119,26 +123,30 @@ function Nav() {
               <MenuItem
                 variant="outlined"
                 onClick={logout}
-              >
+                style={{backgroundColor:theme.palette.primary.main}}>
+              
                 Odloguj me
               </MenuItem>
             ) : (
               <MenuItem
                 variant="outlined"
                 onClick={() => navigate("/login")}
-              >
+                style={{backgroundColor:theme.palette.primary.main}}>
+              
                 Uloguj me
               </MenuItem>
             )}
 
             {authState.id || userAuth ? null : (
-              <MenuItem color="inherit" onClick={() => navigate("/registracija")}>
+              <MenuItem                 style={{backgroundColor:theme.palette.primary.main}}
+              onClick={() => navigate("/registracija")}>
                 Registracija
               </MenuItem>
             )}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          
+          <LoyaltyIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -156,8 +164,25 @@ function Nav() {
             }}
             onClick={()=>navigate("/")}
           >
-            LOGO
+            OGLASI
           </Typography>
+
+          <FormControlLabel
+          sx={{ display: { xs: 'flex', md: 'none' }}}
+              control={
+                <MaterialUISwitch
+                  sx={{ m: 1 }}
+                  selected
+                  onChange={() => {
+                    dispatch(themeSlice.actions.toggleTheme());
+                  }}
+                  checked={themeState.theme === "dark"}
+                />
+              }
+            />
+
+          
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
            <Box style={{display:"flex", marginRight:"auto"}}>
            {pages.map((page) => (
@@ -166,8 +191,9 @@ function Nav() {
                 onClick={()=>{
                   const link = page.replaceAll(' ', '');
                   page === "Pocetna" ? navigate("/") :
-                  navigate(`/${link.toLowerCase()}`)                }}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                  navigate(`/${link.toLowerCase()}`)}}
+                sx={{ my: 2, display: 'block' }}
+                style={{color:theme.palette.text.primary}}
               >
                 {page}
               </Button>
@@ -175,7 +201,7 @@ function Nav() {
            </Box>
               {authState.id || userAuth ? (
               <Button
-                style={{ color: "white" }}
+                style={{ color:theme.palette.text.primary }}
                 variant="outlined"
                 onClick={logout}
               >
@@ -183,18 +209,13 @@ function Nav() {
               </Button>
             ) : (
               <Button
-                style={{ color: "white" }}
+                style={{ color:theme.palette.text.primary }}
                 variant="outlined"
                 onClick={() => navigate("/login")}
               >
                 Uloguj me
               </Button>
             )}
-            {/* {authState.id || userAuth ? null : (
-              <Button color="inherit" onClick={() => navigate("/registracija")}>
-                Registracija
-              </Button>
-            )} */}
               <FormControlLabel
               control={
                 <MaterialUISwitch
@@ -216,7 +237,7 @@ function Nav() {
               </PersonIcon>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: '55px'}}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -233,15 +254,21 @@ function Nav() {
             >
              
               
-                <MenuItem key="profil" onClick={handleCloseUserMenu}>
+                <MenuItem key="profil" onClick={handleCloseUserMenu}
+                              style={{backgroundColor:theme.palette.primary.main}}
+                              >
                   <Typography textAlign="center" onClick={()=>navigate(`/profil/${userState.userID}`)}>Profil</Typography>
                 </MenuItem>
 
-                <MenuItem key="Pratim" onClick={handleCloseUserMenu}>
+                <MenuItem key="Pratim" onClick={handleCloseUserMenu}
+                              style={{backgroundColor:theme.palette.primary.main}}
+                              >
                   <Typography textAlign="center" onClick={()=>navigate(`/pratim`)}>Pratim</Typography>
                 </MenuItem>
 
-                <MenuItem key="logout" onClick={logout}>
+                <MenuItem key="logout" onClick={logout}
+                              style={{backgroundColor:theme.palette.primary.main}}
+                              >
                   <Typography textAlign="center" onClick={logout}>Odjavi se</Typography>
                 </MenuItem>
               

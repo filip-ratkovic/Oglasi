@@ -3,18 +3,17 @@ import { createTheme } from "@mui/material/styles";
 export const themeDark = createTheme({
   palette: {
     primary: {
-      main: "#2e9959",
-      light: "#6bb771",
+      main: "#0e1e2a", //blackcard
+      light: "#21323f",  //blacklightcard
     },
     secondary : {
-      main: "#252d32"
+      main: "#475866" //dark grey
     },
    
-    background: "#303f57", //black
+    background: "#06141b", //black
     text: {
-      primary: "#f5f4f5",
-      secondary: "#d3d1cb",
-        // disabled: "#ccc",
+      primary: "#fafafa",  //white
+      secondary: "#93a0a3", //white darker
     },
   },
   breakpoints: {

@@ -24,3 +24,24 @@
     display: flex;
     justify-content: center;
 }
+
+.pocetna-filteri-kategorija {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width:826px) {
+    .pocetna-filteri-kategorija {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 30px;
+        align-items: center;
+    }
+}
+
+@media (max-width:400px) {
+    .pocetna-filteri-kategorija {
+        flex-direction: column;
+        gap: 0;
+    }
+}

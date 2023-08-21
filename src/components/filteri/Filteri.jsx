@@ -116,6 +116,8 @@ function Filteri({ getFilters }) {
   };
   return (
     <Box className="pocetna-filteri">
+      <Box className="pocetna-filteri-kategorija">
+
       <FormControl sx={{ width: "100%", m: "30px 0" }}>
         <InputLabel id="demo-multiple-name-label">Kategorija</InputLabel>
         <Select
@@ -125,6 +127,7 @@ function Filteri({ getFilters }) {
           onChange={handleCategory}
           input={<OutlinedInput label="Kategorija" />}
           MenuProps={MenuProps}
+          style={{backgroundColor:theme.palette.primary.main}}
         >
           {allCategories.map((name) => (
             <MenuItem
@@ -132,6 +135,7 @@ function Filteri({ getFilters }) {
               value={name}
               id={name}
               className="category-dropdown"
+              style={{backgroundColor:theme.palette.primary.main}}
             >
               {name}
             </MenuItem>
@@ -147,14 +151,16 @@ function Filteri({ getFilters }) {
         name="stanje"
         id="stanje"
         onChange={handleInput}
-        style={{ width: "100%", zIndex:"1111" }}
+        
+        style={{ width: "100%", zIndex:"12",backgroundColor:theme.palette.primary.main }}
       >
-        <MenuItem value={"polovno"} style={{zIndex:"11",  backgroundColor:theme.palette.background}} selected>
+        <MenuItem value={"polovno"} style={{zIndex:"11",  backgroundColor:theme.palette.primary.main}} selected>
           Polovno
         </MenuItem>
-        <MenuItem value={"novo"}  style={{zIndex:"11",  backgroundColor:theme.palette.background}}>Novo</MenuItem>
-        <MenuItem value={"sve"}  style={{zIndex:"11",  backgroundColor:theme.palette.background}}>Sve</MenuItem>
+        <MenuItem value={"novo"}  style={{zIndex:"11",  backgroundColor:theme.palette.primary.main}}>Novo</MenuItem>
+        <MenuItem value={"sve"}  style={{zIndex:"11",  backgroundColor:theme.palette.primary.main}}>Sve</MenuItem>
       </TextField>
+      </Box>
       <Box id="price-container" style={{ marginTop: "30px" }}>
         <p
           className="price-box"
@@ -186,12 +192,14 @@ function Filteri({ getFilters }) {
           min={lowestPrice}
           disableSwap
           className="filteri-display"
+          style={{color:theme.palette.secondary.main}}
         />
       </Box>
       <Box className="filteri-display">
       <Button
         variant="outlined"
         onClick={clearFilters}
+        style={{backgroundColor:theme.palette.text.primary, color:theme.palette.background}}
       >
         Ponisti sve
       </Button>
