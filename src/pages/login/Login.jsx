@@ -74,7 +74,7 @@ const Login = () => {
         onSubmit={(values, actions) => {
           submitLogin(values);
         }}
-        style={{ backgroundColor: theme.palette.secondary.main }}
+        style={{ backgroundColor: theme.palette.primary.main, }}
       >
         {({
           values,
@@ -89,9 +89,11 @@ const Login = () => {
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
+              color:theme.palette.text.primary,
+              marginBlock:"50px"
             }}
           >
-            <Typography variant="h3" color="primary" gutterBottom mb={5}>
+            <Typography variant="h3" gutterBottom mb={5}>
               Log in
             </Typography>
             <Box my={1}>
@@ -208,7 +210,7 @@ const Login = () => {
               className="link"
               style={{ color: theme.palette.text.secondary }}
             >
-              Don't have an account? <span>Sign up</span>
+              Nemas nalog? <span>Registruj se</span>
             </Link>
           </Container>
         )}

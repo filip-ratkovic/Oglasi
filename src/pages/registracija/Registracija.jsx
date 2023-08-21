@@ -88,7 +88,7 @@ const Registracija = () => {
         onSubmit={(values, actions) => {
           signUpSubmit(values);
         }}
-        style={{ backgroundColor: theme.palette.secondary.main }}
+        style={{ backgroundColor: theme.palette.primary.main }}
       >
         {({
           values,
@@ -103,10 +103,12 @@ const Registracija = () => {
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
+              color:theme.palette.text.primary,
+              marginTop:"50px"
             }}
           >
-            <Typography variant="h3" color="primary" gutterBottom mb={5}>
-              Sign up
+            <Typography variant="h3" gutterBottom mb={5}>
+              Registruj se
             </Typography>
             <Box my={1}>
               <TextField
