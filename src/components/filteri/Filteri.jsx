@@ -14,7 +14,7 @@ import React, { useEffect, useState } from "react";
 import { allCategories } from "../../shema/allCategories";
 import "./filteri.css";
 
-function Filteri({ getFilters }) {
+function Filteri({ getFilters}) {
   const [categoryName, setCategoryName] = useState(allCategories[0]);
   const [maxPrice, setMaxPrice] = useState(-Infinity);
   const [lowestPrice, setLowestPrice] = useState(Infinity);
@@ -38,7 +38,7 @@ function Filteri({ getFilters }) {
     let newLowestPrice = Infinity;
     let newMaxPrice = -Infinity;
 
-    sviOglasi.forEach((oglas) => {
+    sviOglasi?.forEach((oglas) => {
       const cena = Number(oglas.cena);
 
       if (oglas.valuta === "din") {

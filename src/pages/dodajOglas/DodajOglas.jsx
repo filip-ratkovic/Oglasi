@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, dodajOglas, getUsers, uploadImage } from "../../config/firebase";
-import { getDownloadURL, listAll } from "firebase/storage";
+import { getDownloadURL } from "firebase/storage";
 import Layout from "../../containers/Layout";
 
 import {
@@ -61,7 +61,7 @@ function DodajOglas() {
     setData({ ...data, [inputID]: value, kategorija: categoryName });
   };
 
-  const getUsersData = useCallback(async () => {
+  const getUsersData = async () => {
     const allUsers = await getUsers();
     allUsers.map((user) => {
       if (user.userID === auth.currentUser.uid) {
@@ -74,7 +74,7 @@ function DodajOglas() {
         }));
       }
     });
-  });
+  };
 
   useEffect(() => {
     setData({ ...data, kategorija: categoryName });

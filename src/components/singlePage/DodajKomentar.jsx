@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Formik } from "formik";
+
+import { ocenaSchema } from "../../shema/ocenaShema";
+import {  updateUser } from "../../config/firebase";
 import {
   Box,
   Button,
   Container,
-  Input,
-  InputLabel,
-  MenuItem,
   TextField,
+  MenuItem,
   Typography,
   useTheme,
 } from "@mui/material";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
-import ClearIcon from "@mui/icons-material/Clear";
+import {ThumbUp as ThumbUpIcon, ThumbDownAlt as ThumbDownAltIcon, Clear as ClearIcon} from "@mui/icons-material";
 import "./dodajKomentar.css";
-import { ocenaSchema } from "../../shema/ocenaShema";
-import { Formik } from "formik";
-import { getUsers, updateUser } from "../../config/firebase";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 function DodajKomentar({ adActive, setAdActive, user,adData, mainUser}) {
   const authState = useSelector((state) => state.auth);
@@ -68,7 +65,6 @@ function DodajKomentar({ adActive, setAdActive, user,adData, mainUser}) {
     }
   };
 
-  console.log(user)
 
   return (
     <Box

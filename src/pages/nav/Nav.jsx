@@ -1,30 +1,27 @@
-import React, { useMemo, useState } from "react";
+import React, {useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { themeSlice } from "../../store/themeSlice";
 import { useNavigate } from "react-router-dom";
-import { FormControlLabel, MenuItem, Switch, useTheme } from "@mui/material";
+
+import { themeSlice } from "../../store/themeSlice";
+import { MaterialUISwitch } from "../../shema/MaterialUISwitch";
+import { auth, logout } from "../../config/firebase";
+
+import { FormControlLabel, MenuItem, useTheme } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import PersonIcon from '@mui/icons-material/Person';
-import { auth, logout } from "../../config/firebase";
-import LoyaltyIcon from '@mui/icons-material/Loyalty';
-
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
-import AdbIcon from '@mui/icons-material/Adb';
+
+import {Menu as MenuIcon, Person as PersonIcon, Loyalty as LoyaltyIcon} from "@mui/icons-material";
+
 import "./nav.css";
-import { MaterialUISwitch } from "../../shema/MaterialUISwitch";
 
 const pages = ['Pocetna', 'Dodaj oglas', 'Moji oglasi'];
-const settings = ['Profil', 'Pratim', 'Logout'];
-
 
 function Nav() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -32,6 +29,7 @@ function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const theme = useTheme()
+
   const themeState = useSelector((state) => state.theme);
   const authState = useSelector((state) => state.auth);
   const userState = useSelector((state) => state.user);

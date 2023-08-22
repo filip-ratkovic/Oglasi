@@ -7,3 +7,17 @@
 .link span{
     color: #0b73e9;
 }
+
+.reg-box-style {
+    width: 400px;
+    max-width: 90% !important;
+}
+
+.reg-input-style {
+    width: 100%;
+}
+
+.reg-btn {
+    width: 100%;
+    margin-bottom: 15px;
+}

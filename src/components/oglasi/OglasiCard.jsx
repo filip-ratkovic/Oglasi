@@ -1,13 +1,12 @@
 import React from 'react'
-import { Box, Grid, useTheme } from '@mui/material';
-import "./oglasiCard.css"
 import { useNavigate } from 'react-router-dom';
+import { Box, useTheme } from '@mui/material';
+import "./oglasiCard.css"
 
 function OglasiCard({oglas}) {
   const navigate= useNavigate();
   const theme = useTheme()
   
-
   return (
     <Box className="card-container"
     onClick={()=>{navigate(`/oglas/${oglas.id}`)}}

@@ -1,11 +1,10 @@
-import { Box } from "@mui/material";
-import React, { useState } from "react";
-import "./oglasiCard.css";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
+import { Box } from "@mui/material";
+import "./oglasiCard.css";
 
 function OglasiCard2({ oglas }) {
-  const [readMore, setReadMore] = useState(false);
   const navigate= useNavigate();
   const theme = useTheme()
   

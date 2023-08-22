@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Formik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { loginSchema } from "../../shema/loginShema";
-
+import GoogleIcon from "@mui/icons-material/Google";
 import {
   TextField,
   Button,
@@ -20,6 +20,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { login, resetPassword, signInWithGoogle } from "../../config/firebase";
 import Layout from "../../containers/Layout";
+import "./login.css"
 
 
 
@@ -94,9 +95,9 @@ const Login = () => {
             }}
           >
             <Typography variant="h3" gutterBottom mb={5}>
-              Log in
+              Uloguj se
             </Typography>
-            <Box my={1}>
+            <Box my={1} className="login-box">
               <TextField
                 variant="standard"
                 label="Email"
@@ -105,31 +106,30 @@ const Login = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
-                style={{ width: "400px" }}
+                className="login-input"
                 sx={{
                   "& label": {
                     color: "grey",
                   },
-
-                  // "& .MuiFormLabel-root.Mui-focused": {
-                  //     color: 'blue'
-                  // },
+                  "& .MuiFormLabel-root.Mui-focused": {
+                      color: 'grey'
+                  },
                 }}
               />
               <Typography variant="body2" color="error">
                 {errors.email && touched.email && `* ${errors.email}`}
               </Typography>
             </Box>
-            <Box my={1}>
-              <FormControl variant="standard">
+            <Box my={1} className="login-box">
+              <FormControl variant="standard" className="login-input">
                 <InputLabel
                   htmlFor="standard-adornment-password"
                   sx={{ color: "grey" }}
                 >
-                  Password
+                  Šifra
                 </InputLabel>
                 <Input
-                  style={{ width: "400px" }}
+                  className="login-input"
                   label="Password"
                   name="password"
                   onChange={handleChange}
@@ -141,6 +141,9 @@ const Login = () => {
                     "& label": {
                       color: "grey",
                     },
+                    "& .MuiFormLabel-root.Mui-focused": {
+                      color: 'grey'
+                  },
                   }}
                   endAdornment={
                     <InputAdornment position="end">
@@ -165,7 +168,7 @@ const Login = () => {
                   style={{  color: theme.palette.error.main, cursor: "pointer" }}
                   onClick={() => forgotPasswordHandler(values.email)}
                 >
-                  Forgot password ?
+                  Zaboravio si šifru?
                 </Typography>
               )}
             </Box>
@@ -173,18 +176,18 @@ const Login = () => {
               mt={5}
               sx={{
                 display: "flex",
-                justifyContent: "space-between",
                 width: "410px",
-                gap: "30px",
+                maxWidth:"100%",
+                flexDirection:"column"
               }}
             >
               <Button
                 onClick={handleSubmit}
                 type="button"
                 variant="contained"
-                style={{ width: "50%" }}
+                style={{ width: "100%", marginBottom: "15px"}}
               >
-                Log in
+                Uloguj se
               </Button>
 
               <Button
@@ -192,18 +195,19 @@ const Login = () => {
                 type="button"
                 variant="contained"
                 style={{
-                  width: "50%",
+                  width: "100%",
                   backgroundColor: theme.palette.text.primary,
                   color: theme.palette.background,
                 }}
               >
-                Log in with Google
+                <GoogleIcon/>
+              Uloguj se sa Google nalogom
               </Button>
             </Box>
             { error && <Typography
               style={{ color: theme.palette.error.main, marginTop:'10px'}}
             >
-              Wrong email or password!
+              Pogrešan email ili šifra!
             </Typography>}
             <Link
               to={"/registracija"}

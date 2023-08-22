@@ -5,7 +5,6 @@ import { Box, Grid, InputAdornment, TextField, useTheme } from "@mui/material";
 import AppsIcon from "@mui/icons-material/Apps";
 import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import SearchIcon from "@mui/icons-material/Search";
-import { useNavigate } from "react-router-dom";
 
 import Filteri from "../../components/filteri/Filteri";
 import OglasiCard from "../../components/oglasi/OglasiCard";
@@ -16,7 +15,6 @@ function Pocetna() {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState([]);
   const [pocetnaStyle, setPocetnaStyle] = useState([12, 6, 4, 4]);
-  const navigate = useNavigate()
   const theme = useTheme()
 
   const handleSearch = (e) => {
@@ -42,7 +40,7 @@ function Pocetna() {
   return (
     <Layout>
       <div className="pocetna-container">
-        <Filteri getFilters={getFilters} />
+        <Filteri getFilters={getFilters}  oglasi={oglasi}/>
         <Box className="pocetna-oglasi-container">
           <Box className="pocetna-oglasi-info" style={{background:theme.palette.primary.main, color:theme.palette.text.primary}}>
             <Box className="pocetna-raspored">
@@ -82,13 +80,13 @@ function Pocetna() {
               }
 
               if (
-                oglas.naziv.toLowerCase().includes(search) &&
+                oglas.naziv.toLowerCase().includes(search.toLowerCase()) &&
                 (filters.kategorija === oglas.kategorija ||
                   filters.kategorija === "Sve") &&
                 (filters.stanje === oglas.stanje || filters.stanje === "sve") &&
                 filters.cena[0] <= cena &&
                 filters.cena[1] >= cena
-              ) {
+              ) 
                 return (
                   <Grid
                     item
@@ -106,7 +104,6 @@ function Pocetna() {
                     )}
                   </Grid>
                 );
-              }
             })}
           </Grid>
         </Box>

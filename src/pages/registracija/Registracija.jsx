@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Formik } from "formik";
-import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import Layout from "../../containers/Layout";
-import "./registracija.css";
+import { Formik } from "formik";
 
+import Layout from "../../containers/Layout";
+import { datum } from "../../shema/datum";
 import { addUsers, signInWithGoogle, signUp } from "../../config/firebase";
+import {RegistracijaShema} from "../../shema/RegistracijaShema"
 
 import {
   TextField,
@@ -13,29 +13,14 @@ import {
   Box,
   Typography,
   useTheme,
-  Container,
   InputLabel,
   InputAdornment,
   IconButton,
   Input,
   FormControl,
 } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { serverTimestamp } from "firebase/firestore";
-
-const RegistracijaShema = Yup.object({
-  email: Yup.string()
-    .required("Email je obavezno polje, unesite email")
-    .email("Email format nije dobar"),
-  password: Yup.string()
-    .required("Sifra je obavezno polje, unesite sifru")
-    .min(6, "Sifra mora da ima najmanje 6 karaktera")
-    .max(50, "Sifra mora da ima najvise 50 karaktera"),
-  confirm_password: Yup.string()
-    .label("confirm password")
-    .required()
-    .oneOf([Yup.ref("password"), null], "Passwords must match"),
-});
+import { Visibility, VisibilityOff, Google as GoogleIcon } from "@mui/icons-material";
+import "./registracija.css";
 
 const Registracija = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -49,12 +34,21 @@ const Registracija = () => {
     event.preventDefault();
   };
 
+
   const signUpSubmit = async (values) => {
     try {
       const res = await signUp(values.email, values.password, values.username);
-      await addUsers({ ...values, userID: res.uid, email: res.email, password:"", confirm_password:"", 
-      ocene:[], pozitivna_ocena:[], negativna_ocena:[], follow:[]
-    });
+      await addUsers({
+        ...values,
+        userID: res.uid,
+        email: res.email,
+        password: "",
+        confirm_password: "",
+        ocene: [],
+        pozitivna_ocena: [],
+        negativna_ocena: [],
+        follow: [],
+      });
       navigate("/");
     } catch (error) {
       alert(error);
@@ -80,9 +74,8 @@ const Registracija = () => {
           username: "",
           ime_prezime: "",
           grad: "",
-          ocena: 0,
           broj_telefona: "",
-          timeStramp:serverTimestamp()
+          datum_prijave: datum(),
         }}
         validationSchema={RegistracijaShema}
         onSubmit={(values, actions) => {
@@ -98,19 +91,21 @@ const Registracija = () => {
           handleBlur,
           handleSubmit,
         }) => (
-          <Container
+          <Box
             style={{
               display: "flex",
               alignItems: "center",
+              justifyContent: "center",
               flexDirection: "column",
-              color:theme.palette.text.primary,
-              marginTop:"50px"
+              width: "100%",
+              color: theme.palette.text.primary,
+              marginTop: "50px",
             }}
           >
             <Typography variant="h3" gutterBottom mb={5}>
               Registruj se
             </Typography>
-            <Box my={1}>
+            <Box my={1} className="reg-box-style">
               <TextField
                 variant="standard"
                 label="Email"
@@ -119,26 +114,34 @@ const Registracija = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
-                style={{ width: "400px" }}
+                className="reg-input-style"
                 sx={{
                   "& label": {
                     color: "grey",
                   },
-
-                  // "& .MuiFormLabel-root.Mui-focused": {
-                  //     color: 'blue'
-                  // },
+                  "& .MuiFormLabel-root.Mui-focused": {
+                    color: "grey",
+                  },
                 }}
               />
               <Typography variant="body2" color="error">
                 {errors.email && touched.email && `* ${errors.email}`}
               </Typography>
             </Box>
-            <Box my={1}>
-              <FormControl variant="standard">
-                <InputLabel sx={{ color: "grey" }}>Password</InputLabel>
+            <Box my={1} className="reg-box-style">
+              <FormControl variant="standard" className="reg-input-style">
+                <InputLabel
+                  sx={{
+                    color: "grey",
+                    "& .MuiFormLabel-root.Mui-focused": {
+                      color: "grey",
+                    },
+                  }}
+                >
+                  Šifra
+                </InputLabel>
                 <Input
-                  style={{ width: "400px" }}
+                  className="reg-input-style"
                   label="Password"
                   name="password"
                   onChange={handleChange}
@@ -170,16 +173,16 @@ const Registracija = () => {
               </Typography>
             </Box>
 
-            <Box my={1}>
-              <FormControl variant="standard">
+            <Box my={1} className="reg-box-style">
+              <FormControl variant="standard" className="reg-input-style">
                 <InputLabel
                   htmlFor="standard-adornment-password"
                   sx={{ color: "grey" }}
                 >
-                  Confirm Password
+                  Potvrdi Šifra
                 </InputLabel>
                 <Input
-                  style={{ width: "400px" }}
+                  className="reg-input-style"
                   label="Confirm password"
                   name="confirm_password"
                   onChange={handleChange}
@@ -214,7 +217,7 @@ const Registracija = () => {
               </Typography>
             </Box>
 
-            <Box my={1}>
+            <Box my={1} className="reg-box-style">
               <TextField
                 variant="standard"
                 label="Username"
@@ -223,9 +226,12 @@ const Registracija = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.username}
-                style={{ width: "400px" }}
+                className="reg-input-style"
                 sx={{
                   "& label": {
+                    color: "grey",
+                  },
+                  "& .MuiFormLabel-root.Mui-focused": {
                     color: "grey",
                   },
                 }}
@@ -235,39 +241,47 @@ const Registracija = () => {
               </Typography>
             </Box>
 
-            <Box my={1}>
+            <Box my={1} className="reg-box-style">
               <TextField
                 variant="standard"
-                label="Ime i prezime"
+                label="Ime i Prezime"
                 type="text"
                 name="ime_prezime"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.ime_prezime}
-                style={{ width: "400px" }}
+                className="reg-input-style"
                 sx={{
                   "& label": {
+                    color: "grey",
+                  },
+                  "& .MuiFormLabel-root.Mui-focused": {
                     color: "grey",
                   },
                 }}
               />
               <Typography variant="body2" color="error">
-                {errors.ime_prezime && touched.ime_prezime && `* ${errors.ime_prezime}`}
+                {errors.ime_prezime &&
+                  touched.ime_prezime &&
+                  `* ${errors.ime_prezime}`}
               </Typography>
             </Box>
 
-            <Box my={1}>
+            <Box my={1} className="reg-box-style">
               <TextField
                 variant="standard"
-                label="grad"
+                label="Grad"
                 type="text"
                 name="grad"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.grad}
-                style={{ width: "400px" }}
+                className="reg-input-style"
                 sx={{
                   "& label": {
+                    color: "grey",
+                  },
+                  "& .MuiFormLabel-root.Mui-focused": {
                     color: "grey",
                   },
                 }}
@@ -277,8 +291,7 @@ const Registracija = () => {
               </Typography>
             </Box>
 
-
-            <Box my={1}>
+            <Box my={1} className="reg-box-style">
               <TextField
                 variant="standard"
                 label="Broj telefona (+381/661234567)"
@@ -287,58 +300,66 @@ const Registracija = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.broj_telefona}
-                style={{ width: "400px" }}
+                className="reg-input-style"
                 sx={{
                   "& label": {
+                    color: "grey",
+                  },
+                  "& .MuiFormLabel-root.Mui-focused": {
                     color: "grey",
                   },
                 }}
               />
               <Typography variant="body2" color="error">
-                {errors.broj_telefona && touched.broj_telefona && `* ${errors.broj_telefona}`}
+                {errors.broj_telefona &&
+                  touched.broj_telefona &&
+                  `* ${errors.broj_telefona}`}
               </Typography>
             </Box>
-
 
             <Box
               mt={5}
               sx={{
                 display: "flex",
-                justifyContent: "space-between",
+                flexDirection: "column",
                 width: "410px",
-                gap: "30px",
+                maxWidth: "90%",
               }}
             >
               <Button
                 onClick={handleSubmit}
                 type="button"
                 variant="contained"
-                style={{ width: "50%" }}
+                className="reg-btn"
               >
-                Sign up
+                Registruj se
               </Button>
 
               <Button
                 onClick={signInWithGoogleHandler}
                 type="button"
                 variant="contained"
+                className="reg-btn"
                 style={{
-                  width: "50%",
                   backgroundColor: theme.palette.text.primary,
                   color: theme.palette.background,
                 }}
               >
-                Sign up with Google
+                <GoogleIcon style={{ marginRight: "5px" }} />
+                Registruj se sa Google nalogom
               </Button>
             </Box>
             <Link
               to={"/login"}
               className="link"
-              style={{ color: theme.palette.text.secondary }}
+              style={{
+                color: theme.palette.text.secondary,
+                marginBottom: "15px",
+              }}
             >
-              Have an account already? <span>Log in</span>
+              Već ste registrovani? <span>Uloguj se</span>
             </Link>
-          </Container>
+          </Box>
         )}
       </Formik>
     </Layout>

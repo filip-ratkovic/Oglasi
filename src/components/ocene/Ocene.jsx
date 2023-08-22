@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, {  useState } from "react";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import PersonIcon from "@mui/icons-material/Person";
 import "./ocene.css";
 import { Box, Button, ButtonGroup, useTheme } from "@mui/material";
 
-function Ocene({ adData, user }) {
+function Ocene({user }) {
   const [statusOcene, setStatusOcene] = useState(true)
-  const authState = useSelector((state) => state.auth);
   const theme = useTheme()
 
 

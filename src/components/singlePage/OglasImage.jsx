@@ -1,7 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// import Swiper from 'swiper';
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -33,7 +31,7 @@ function OglasImage({ adData }) {
         {adData.img?.map((url) => {
           return (
             <SwiperSlide>
-              <img src={url} alt="image" />
+              <img src={url} alt="sliderImage" />
             </SwiperSlide>
           );
         })}
@@ -55,7 +53,7 @@ function OglasImage({ adData }) {
         {adData.img?.map((url) => {
           return (
             <SwiperSlide className="ad-img-small-slide">
-              <img src={url} alt="image" />
+              <img src={url} alt="sliderImage" />
             </SwiperSlide>
           );
         })}
