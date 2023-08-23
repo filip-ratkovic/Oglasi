@@ -121,10 +121,15 @@ const Login = () => {
               </Typography>
             </Box>
             <Box my={1} className="login-box">
-              <FormControl variant="standard" className="login-input">
+              <FormControl variant="standard" className="login-input" sx={{  "& label": {
+                    color: "grey",
+                  },
+                  "& .MuiFormLabel-root.Mui-focused": {
+                      color: 'grey'
+                  },}}>
                 <InputLabel
                   htmlFor="standard-adornment-password"
-                  sx={{ color: "grey" }}
+                  sx={{ color: "grey"}}
                 >
                   Šifra
                 </InputLabel>

@@ -26,6 +26,7 @@ function Oglas() {
 
   const getUsersData = async (data) => {
     const userRes = await getUsers();
+    
     userRes.forEach((currentUser, index) => {
       if (currentUser.userID === data.userID) {
         setUser(currentUser);

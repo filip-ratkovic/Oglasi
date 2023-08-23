@@ -178,6 +178,14 @@ function DodajOglas() {
                 width: "45%",
                 backgroundColor: theme.palette.primary.main,
               }}
+              sx={{
+                "& label": {
+                  color: "grey",
+                },
+                "& .MuiFormLabel-root.Mui-focused": {
+                    color: 'grey'
+                },
+              }}
               aria-describedby="component-error-text"
             />
             <TextField
@@ -190,6 +198,14 @@ function DodajOglas() {
               style={{
                 width: "45%",
                 backgroundColor: theme.palette.primary.main,
+              }}
+              sx={{
+                "& label": {
+                  color: "grey",
+                },
+                "& .MuiFormLabel-root.Mui-focused": {
+                    color: 'grey'
+                },
               }}
             />
           </div>
@@ -208,13 +224,14 @@ function DodajOglas() {
             onChange={handleInput}
             rows={3}
             multiline
-            // sx={{
-            //   "& .MuiOutlinedInput-root": {
-            //     "& fieldset": {
-            //       borderColor: theme.palette.primary.light,
-            //     },
-            //   },
-            // }}
+            sx={{
+              "& label": {
+                color: "grey",
+              },
+              "& .MuiFormLabel-root.Mui-focused": {
+                  color: 'grey'
+              },
+            }}
           />
 
           <div className="category-input">
@@ -229,13 +246,14 @@ function DodajOglas() {
               name="cena"
               placeholder="Cena"
               onChange={handleInput}
-              // sx={{
-              //   "& .MuiOutlinedInput-root": {
-              //     "& fieldset": {
-              //       borderColor: theme.palette.primary.light,
-              //     },
-              //   },
-              // }}
+              sx={{
+                "& label": {
+                  color: "grey",
+                },
+                "& .MuiFormLabel-root.Mui-focused": {
+                    color: 'grey'
+                },
+              }}
             />
             <TextField
               select
@@ -247,6 +265,14 @@ function DodajOglas() {
               style={{
                 width: "40%",
                 backgroundColor: theme.palette.primary.main,
+              }}
+              sx={{
+                "& label": {
+                  color: "grey",
+                },
+                "& .MuiFormLabel-root.Mui-focused": {
+                    color: 'grey'
+                },
               }}
             >
               <MenuItem
@@ -283,6 +309,14 @@ function DodajOglas() {
               marginTop: "30px",
               backgroundColor: theme.palette.primary.main,
             }}
+            sx={{
+              "& label": {
+                color: "grey",
+              },
+              "& .MuiFormLabel-root.Mui-focused": {
+                  color: 'grey'
+              },
+            }}
           />
 
           <div className="category-input">
@@ -297,6 +331,7 @@ function DodajOglas() {
                 width: "45%",
                 backgroundColor: theme.palette.primary.main,
               }}
+              
             >
               <MenuItem
                 value={"polovno"}
@@ -355,7 +390,7 @@ function DodajOglas() {
             </TextField>
           </div>
           <div style={{ width: "100%" }}>
-            <FormControl sx={{ width: "100%", mt: "30px" }}>
+            <FormControl sx={{ width: "100%", mt: "30px" }} >
               <InputLabel id="demo-multiple-name-label">Kategorija</InputLabel>
               <Select
                 labelId="demo-multiple-name-label"

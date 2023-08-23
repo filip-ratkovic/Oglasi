@@ -10,21 +10,30 @@ import {
 } from "@mui/icons-material";
 import DodajKomentar from "./DodajKomentar";
 import { updateUser } from "../../config/firebase";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function OglasText({ user, adData, mainUser }) {
   const [adActive, setAdActive] = useState(false);
   const [followed, setFollowed] = useState(false);
+  const authState = useSelector((state) => state.auth);
   const theme = useTheme();
+  const navigate = useNavigate()
 
   const handleAdComment = () => {
     setAdActive(true);
   };
 
   const handleFollowUser = async () => {
-    let newFollow = mainUser.follow;
-    newFollow.push(user.userID);
-    await updateUser(mainUser.id, { ...mainUser, follow: newFollow });
-    setFollowed(mainUser.follow);
+    if(authState.id) {
+      let newFollow = mainUser.follow;
+      newFollow.push(user?.userID);
+      await updateUser(mainUser.id, { ...mainUser, follow: newFollow });
+      setFollowed(mainUser.follow);
+    } else {
+      alert('Niste prijavljeni')
+      navigate("/login")
+    }
   };
 
   const handleUnfollowUser = async () => {
@@ -32,6 +41,7 @@ function OglasText({ user, adData, mainUser }) {
     await updateUser(mainUser.id, { ...mainUser, follow: newFollow });
     setFollowed(newFollow);
   };
+
   return (
     <Box className="ad-text-container">
       <DodajKomentar
@@ -82,6 +92,7 @@ function OglasText({ user, adData, mainUser }) {
             />
             <h2>{adData?.ime_prezime}</h2>
           </Box>
+          {authState.id !== user.userID ? <Box>
           {mainUser.follow?.includes(user.userID) ? (
             <Button
               size="small"
@@ -113,6 +124,7 @@ function OglasText({ user, adData, mainUser }) {
               Prati <BookmarkIcon />
             </Button>
           )}
+          </Box> : null}
           <p>Clan od {user.datum_prijave}</p>
           <ButtonGroup
             disableElevation
@@ -149,6 +161,7 @@ function OglasText({ user, adData, mainUser }) {
               justifyContent: "space-between",
               color: "white",
               backgroundColor: theme.palette.text.secondary,
+              maxWidth:"200px"
             }}
           >
             Posalji poruku

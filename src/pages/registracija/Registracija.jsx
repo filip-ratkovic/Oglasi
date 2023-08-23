@@ -129,14 +129,16 @@ const Registracija = () => {
               </Typography>
             </Box>
             <Box my={1} className="reg-box-style">
-              <FormControl variant="standard" className="reg-input-style">
-                <InputLabel
-                  sx={{
-                    color: "grey",
-                    "& .MuiFormLabel-root.Mui-focused": {
+              <FormControl variant="standard" className="reg-input-style"  sx={{
+                    "& label": {
                       color: "grey",
                     },
-                  }}
+                    "& .MuiFormLabel-root.Mui-focused": {
+                        color: 'grey'
+                    },
+                  }}>
+                <InputLabel
+                 
                 >
                   Šifra
                 </InputLabel>
@@ -174,12 +176,19 @@ const Registracija = () => {
             </Box>
 
             <Box my={1} className="reg-box-style">
-              <FormControl variant="standard" className="reg-input-style">
+              <FormControl variant="standard" className="reg-input-style"  sx={{
+                    "& label": {
+                      color: "grey",
+                    },
+                    "& .MuiFormLabel-root.Mui-focused": {
+                        color: 'grey',
+                    },
+                  }}>
                 <InputLabel
                   htmlFor="standard-adornment-password"
                   sx={{ color: "grey" }}
                 >
-                  Potvrdi Šifra
+                  Potvrdi šifru
                 </InputLabel>
                 <Input
                   className="reg-input-style"
@@ -343,6 +352,7 @@ const Registracija = () => {
                 style={{
                   backgroundColor: theme.palette.text.primary,
                   color: theme.palette.background,
+                  marginTop: "15px" 
                 }}
               >
                 <GoogleIcon style={{ marginRight: "5px" }} />
