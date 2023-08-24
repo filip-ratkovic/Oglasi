@@ -21,7 +21,10 @@ function OglasText({ user, adData, mainUser }) {
   const navigate = useNavigate()
 
   const handleAdComment = () => {
-    setAdActive(true);
+    authState.id === user.userID ? 
+    setAdActive(true) :
+    alert("Niste prijavljeni");
+    navigate("/login")
   };
 
   const handleFollowUser = async () => {
@@ -84,6 +87,7 @@ function OglasText({ user, adData, mainUser }) {
             </Box>
           </Box>
         </Box>
+            <p className="ad-text-opis2">{adData.opis}</p>
 
         <Box className="ad-text-userinfo">
           <Box className="add-first-cont">
@@ -92,6 +96,7 @@ function OglasText({ user, adData, mainUser }) {
             />
             <h2>{adData?.ime_prezime}</h2>
           </Box>
+
           {authState.id !== user.userID ? <Box>
           {mainUser.follow?.includes(user.userID) ? (
             <Button
@@ -155,14 +160,13 @@ function OglasText({ user, adData, mainUser }) {
           </ButtonGroup>
 
           <Button
+          className="send-btn"
             variant="contained"
             style={{
               display: "flex",
               justifyContent: "space-between",
               color: "white",
-              backgroundColor: theme.palette.text.secondary,
-              maxWidth:"200px"
-            }}
+              backgroundColor: theme.palette.text.secondary}}
           >
             Posalji poruku
             <SendIcon />
@@ -170,7 +174,7 @@ function OglasText({ user, adData, mainUser }) {
         </Box>
       </Box>
 
-      <p>{adData.opis}</p>
+      <p className="ad-text-opis">{adData.opis}</p>
     </Box>
   );
 }

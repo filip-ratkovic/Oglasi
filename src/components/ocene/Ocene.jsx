@@ -23,6 +23,7 @@ function Ocene({user }) {
             aria-label="Disabled elevation buttons"
           >
             <Button
+            className={`${statusOcene ? 'ocena-active' : ''}`}
               variant="outlined"
               style={{
                 marginRight: "10px",
@@ -30,6 +31,7 @@ function Ocene({user }) {
                 width: "100px",
                  height:"50px",
                 color: "#007ec3",
+                borderColor:theme.palette.background
               }}
               onClick={()=> {
                 setStatusOcene(true)
@@ -39,6 +41,7 @@ function Ocene({user }) {
               {user.pozitivna_ocena?.length}
             </Button>
             <Button
+              className={`${!statusOcene ? 'ocena-active' : ''}`}
               variant="outlined"
               style={{ borderRadius: "30px", color: "red", width: "100px", height:"50px" }}
               onClick={()=> {

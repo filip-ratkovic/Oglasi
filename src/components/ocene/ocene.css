@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: column;
     padding-inline: 30px;
-
 }
 
 .ocene-header {
@@ -28,6 +27,7 @@
 .ocene-korisnika {
     width: 100%;
     padding: 20px;
+    
 }
 
 .ocene-card {
@@ -38,6 +38,8 @@
     background-color: rgb(211, 211, 211, 0.5);
 box-shadow: 4px 6px 10px rgb(211, 211, 211, 0.15);
 padding: 10px;
+border-radius: 8px;
+
 }
 
 .ocene-card-select {
@@ -48,7 +50,31 @@ padding: 10px;
 
 .ocene-card-komentar {
     width: 100%;
-    padding-block: 10px;
+    padding: 10px;
     background-color:whitesmoke ;
     margin-bottom: 10px;
+}
+.ocena-active {
+border-color: rgb(211, 211, 211, 0.5) !important;
+}
+
+@media (max-width:650px) {
+    .ocene-container {
+        padding: 15px;
+    }
+
+    .ocene-header {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    .ocene-pozitivne {
+        display: flex;
+        justify-content: center;
+    }
+    .ocene-card-select {
+        display: flex;
+        flex-direction: column;
+    }
 }
