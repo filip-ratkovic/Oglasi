@@ -21,10 +21,11 @@ function OglasText({ user, adData, mainUser }) {
   const navigate = useNavigate()
 
   const handleAdComment = () => {
-    authState.id === user.userID ? 
-    setAdActive(true) :
-    alert("Niste prijavljeni");
-    navigate("/login")
+    //  user.ocene.includes(authState.id) ? 
+    setAdActive(true) 
+    // console.log("ne")
+    // alert("Niste prijavljeni");
+    // navigate("/login") 
   };
 
   const handleFollowUser = async () => {
