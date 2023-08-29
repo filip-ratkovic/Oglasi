@@ -10,10 +10,12 @@ import Filteri from "../../components/filteri/Filteri";
 import OglasiCard from "../../components/oglasi/OglasiCard";
 import OglasiCard2 from "../../components/oglasi/OglasiCard2";
 import "./pocetna.css";
+import Loading from "../../components/Loading/Loading";
 function Pocetna() {
   const [oglasi, setOglasi] = useState([]);
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState([]);
+  const [loading, setLoading] = useState(true)
   const [pocetnaStyle, setPocetnaStyle] = useState([12, 6, 4, 4]);
   const theme = useTheme()
 
@@ -31,11 +33,18 @@ function Pocetna() {
       .then((data) => {
         setOglasi(data);
         localStorage.setItem("sviOglasi", JSON.stringify(data));
+        setLoading(false)
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
+        setLoading(false)
       });
   }, []);
+
+  if(loading) {
+    return <Loading/>
+  }
+  
 
   return (
     <Layout>
