@@ -57,7 +57,7 @@ function Oglas() {
 
         <OglasText adData={adData} user={user} mainUser={mainUser}/>
         </Box>
-        <Ocene adData={adData} user={user}/>
+        <Ocene adData={adData} user={user} mainUser={mainUser}/>
       </Box>
     </Layout>
   );

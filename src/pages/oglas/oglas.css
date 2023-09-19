@@ -55,8 +55,10 @@
   .ad-text-opis2 {
     display: none;
     margin-bottom: 30px;
-  } .ad-text-opis {
+  }
+   .ad-text-opis {
     display: block;
+    margin-block: 50px;
   }
   .send-btn {
     width: 200px;

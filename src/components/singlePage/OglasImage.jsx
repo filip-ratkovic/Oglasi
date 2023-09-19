@@ -18,7 +18,7 @@ function OglasImage({ adData }) {
     <Box className="ad-img-cont">
       <Swiper
         style={{
-          "--swiper-navigation-color": theme.palette.primary.main,
+          "--swiper-navigation-color": "#1976d2",
           width:"100%",
           height:"83%"
         }}

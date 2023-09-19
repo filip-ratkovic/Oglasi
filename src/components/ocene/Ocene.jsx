@@ -5,7 +5,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import "./ocene.css";
 import { Box, Button, ButtonGroup, useTheme } from "@mui/material";
 
-function Ocene({user }) {
+function Ocene({user, mainUser}) {
   const [statusOcene, setStatusOcene] = useState(true)
   const theme = useTheme()
 
@@ -72,6 +72,8 @@ function Ocene({user }) {
             <p id="komentar">Komentar : {ocena.komentar}</p>
 
             </Box>
+            {mainUser.userID === ocena.user ? 
+            <Button color="error">Delete</Button> : null}
           </Box>
         );
       })}
