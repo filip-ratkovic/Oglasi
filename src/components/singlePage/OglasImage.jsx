@@ -28,9 +28,9 @@ function OglasImage({ adData }) {
         modules={[FreeMode, Navigation, Thumbs]}
         className="ad-img-big-slide"
       >
-        {adData.img?.map((url) => {
+        {adData.img?.map((url, index) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={index}>
               <img src={url} alt="sliderImage" />
             </SwiperSlide>
           );
@@ -50,9 +50,9 @@ function OglasImage({ adData }) {
         className="mySwiper"
         centeredSlides={true}
       >
-        {adData.img?.map((url) => {
+        {adData.img?.map((url, index) => {
           return (
-            <SwiperSlide className="ad-img-small-slide">
+            <SwiperSlide className="ad-img-small-slide" key={index*5}>
               <img src={url} alt="sliderImage" />
             </SwiperSlide>
           );

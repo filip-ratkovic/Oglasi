@@ -26,7 +26,6 @@ function DodajKomentar({ adActive, setAdActive, user,adData, mainUser}) {
   const handleExitComment = () => {
     setAdActive(false);
   };
-console.log(user)
   const potvrdiOcenu = async (values) => {
     const pozitivnaOcena = user.pozitivna_ocena;
     const negativnaOcena = user.negativna_ocena;

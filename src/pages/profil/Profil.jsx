@@ -14,7 +14,9 @@ function Profil() {
 
     useEffect(()=> {
         getUsersData()
-    })
+    },[])
+
+    console.log(userData)
 
   return (
     <Layout>

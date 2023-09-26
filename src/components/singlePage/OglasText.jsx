@@ -20,23 +20,20 @@ function OglasText({ user, adData, mainUser }) {
   const theme = useTheme();
   const navigate = useNavigate()
 
-  console.log(mainUser, 'mainUser')
-  console.log(user, 'user')
-
- 
-  if(user.ocene?.includes(mainUser.userID)) {
-    console.log('vec ocenio')
-  }
-
   const handleAdComment = () => {
-    if(mainUser.userID === user.userID) {
-      return alert('Ne mozete oceniti svoj oglas')
-    }
-    if(user.ocene?.includes(mainUser.userID)) {
-      return alert('Vec ste ocenili ovaj oglas')
-    }
-    else {
-      setAdActive(true) 
+    if(authState.id) {
+      if(mainUser.userID === user.userID) {
+        return alert('Ne mozete oceniti svoj oglas')
+      }
+      if(user.ocene?.includes(mainUser.userID)) {
+        return alert('Vec ste ocenili ovaj oglas')
+      }
+      else {
+        setAdActive(true) 
+      }
+    } else {
+      navigate('/login')
+      alert('Niste prijavljeni')
     }
   };
 

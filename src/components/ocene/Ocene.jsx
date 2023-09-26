@@ -25,7 +25,6 @@ function Ocene({user, mainUser}) {
       console.log(error)
    }
   }
-  console.log(ocena)
 
 const getUserData = (data) => {
   setOcena(data)
@@ -80,9 +79,9 @@ const getUserData = (data) => {
       </Box>
      {statusOcene ? 
       <Box className="ocene-korisnika">
-      {ocena?.pozitivna_ocena?.map((ocena) => {
+      {ocena?.pozitivna_ocena?.map((ocena, index) => {
         return (
-          <Box className="ocene-card">
+          <Box className="ocene-card" key={index*4}>
                           <Box className="add-first-cont">
             <PersonIcon style={{ color: theme.palette.primary.main }} />
             <p style={{color:"grey"}}>{ocena.ime?.toUpperCase()}</p>
@@ -102,9 +101,9 @@ const getUserData = (data) => {
         );
       })}
     </Box> :  <Box className="ocene-korisnika">
-        {user.negativna_ocena?.map((ocena) => {
+        {user.negativna_ocena?.map((ocena, index) => {
           return (
-            <Box className="ocene-card">
+            <Box className="ocene-card" key={index*3}>
    <Box className="add-first-cont">
             <PersonIcon style={{ color: theme.palette.primary.main }} />
             <p style={{color:"grey"}}>{ocena.ime?.toUpperCase()}</p>

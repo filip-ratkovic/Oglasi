@@ -37,8 +37,9 @@ function App() {
         store.dispatch(
           authSlice.actions.setData({...authState, username:user.username}))
           localStorage.setItem("mainUser", JSON.stringify(user))
+          store.dispatch(userSlice.actions.setUser(user))
       }
-      store.dispatch(userSlice.actions.setUser(user))
+     
     })
 
 },[users])
