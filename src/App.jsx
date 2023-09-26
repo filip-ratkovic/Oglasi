@@ -17,6 +17,7 @@ import { authSlice } from "./store/authSlice";
 import { userSlice } from "./store/userSlice";
 import { store } from "./store/store";
 import Pratim from "./pages/pratim/Pratim";
+import Profil from "./pages/profil/Profil";
 
 function App() {
   const themeState = useSelector((state) => state.theme);
@@ -60,6 +61,7 @@ function App() {
         <Route path="/oglas/:id" element={<Oglas />} />
         <Route path="/korisnik" element={<Korisnik />} />
         <Route path="/pratim" element={<Pratim />} />
+        <Route path="/profil/:id" element={<Profil />} />
         <Route
           path="/mojioglasi"
           element={

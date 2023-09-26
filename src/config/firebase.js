@@ -138,6 +138,12 @@ export const getUsers = async () => {
   const usersList = usersResults.docs.map((doc) => ({...doc.data(), id : doc.id}));
   return usersList;
 };
+export const getUsersById = async (id) => {
+  const docRef = doc(db, "users", id);
+  const docSnap = await getDoc(docRef);
+  const data = docSnap.data();
+  return { ...data, id: id };
+};
 
 
 export const updateOglas = async (id, data) => {

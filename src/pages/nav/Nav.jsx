@@ -51,6 +51,7 @@ function Nav() {
     setAnchorElUser(null);
   };
   
+
   return (
       <Box sx={{ flexGrow: 1, position:"sticky", top:"0", zIndex:"111" }}>
       <AppBar position="static">
@@ -255,7 +256,7 @@ function Nav() {
                 <MenuItem key="profil" onClick={handleCloseUserMenu}
                               style={{backgroundColor:theme.palette.primary.main}}
                               >
-                  <Typography textAlign="center" onClick={()=>navigate(`/profil/${userState.userID}`)}>Profil</Typography>
+                  <Typography textAlign="center" onClick={()=>navigate(`/profil/${userState.id}`)}>Profil</Typography>
                 </MenuItem>
 
                 <MenuItem key="Pratim" onClick={handleCloseUserMenu}
