@@ -32,9 +32,9 @@ function Nav() {
 
   const themeState = useSelector((state) => state.theme);
   const authState = useSelector((state) => state.auth);
-  const userState = useSelector((state) => state.user);
   const userAuth = auth?.currentUser?.uid;
 
+  const user =  JSON.parse(localStorage.getItem("mainUser"))
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -255,7 +255,7 @@ function Nav() {
                 <MenuItem key="profil" onClick={handleCloseUserMenu}
                               style={{backgroundColor:theme.palette.primary.main}}
                               >
-                  <Typography textAlign="center" onClick={()=>navigate(`/profil/${userState.id}`)}>Profil</Typography>
+                  <Typography textAlign="center" onClick={()=>navigate(`/profil/${user.id}`)}>Profil</Typography>
                 </MenuItem>
 
                 <MenuItem key="Pratim" onClick={handleCloseUserMenu}
